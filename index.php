@@ -14,7 +14,7 @@ require_once('model/realty.model.php');
 $realty=get_all_realty_order_by_id();
 
 //Запрашиваем все значения из таблицы Типы_Стен
-$walls=get_all_walls();
+$walls=get_all_walls_and_count();
 
 //Проверка на пост запрос о добавлении новой записи
 if (isset($_POST['operation']))

@@ -49,6 +49,6 @@ else {
 }
 
 //Запрашиваем все значения из таблицы Типы_Стен
-$walls=get_all_walls();
+$walls=get_all_walls_and_count();
 mysqli_close($link);
 require 'views/edit.php';
