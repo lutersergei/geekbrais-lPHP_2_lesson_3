@@ -72,8 +72,8 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="table-responsive table-bordered">
-                                <table class="table table-hover">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-condensed">
                                     <thead>
                                     <tr>
                                         <th>Комнат</th>
@@ -83,6 +83,7 @@
                                         <th>Площадь</th>
                                         <th>Цена</th>
                                         <th>Описание</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -96,8 +97,12 @@
                                             <td>{$area}</td>
                                             <td>{$price}</td>
                                             <td>{$description}</td> 
-                                            <td><a href="edit.php?id={$id}">Редактирование</a></td>
-                                            <td><a href="delete.php?id={$realty_one['realty_id']}">Удаление</a></td>
+                                            <td>
+                                            <div class="btn-group" role="group">
+                                            <a href="edit.php?id={$id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="delete.php?id={$realty_one['realty_id']}"  class="btn btn-default btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            </div>
+                                            </td>
                                             </tr>                                       
 HTML;
 

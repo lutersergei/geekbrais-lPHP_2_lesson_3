@@ -72,8 +72,8 @@
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <div class="table-responsive table-bordered">
-                                    <table class="table table-hover">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-condensed">
                                         <thead>
                                         <tr>
                                             <th>Комнат</th>
@@ -82,6 +82,7 @@
                                             <th>Материал стен</th>
                                             <th>Площадь</th>
                                             <th>Цена</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
