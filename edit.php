@@ -11,6 +11,7 @@ if (isset($_GET['id']))
 }
 else {
     header('Location:index.php');
+    die();
 }
 
 //Проверка на пост запрос об изменеии записи
@@ -27,10 +28,11 @@ if (isset($_POST['operation']))
         $description=$_POST['description'];
         $update=update_realty($rooms, $floor, $adress, $material, $area, $price, $description, $id);
         header("Location:index.php");
+        die();
     }
 }
 
-//Получение информации об изменяемой записи для передачи в изначальные значения
+//Получение информации об изменяемой записи для передачи в начальные значения
 if ($realty_information=get_realty_information($id))
 {
     foreach ($realty_information as $realty_one)
@@ -46,9 +48,11 @@ if ($realty_information=get_realty_information($id))
 }
 else {
     header('Location:index.php');
+    die();
 }
 
 //Запрашиваем все значения из таблицы Типы_Стен
 $walls=get_all_walls_and_count();
+
 mysqli_close($link);
 require 'views/edit.php';

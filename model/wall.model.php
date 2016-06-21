@@ -23,6 +23,7 @@ GROUP BY `wall`.`id`";
     }
     return $walls;
 }
+
 function get_wall_information_by_id ($id)
 {
     global $link;
@@ -42,3 +43,33 @@ WHERE `wall`.`id` = '$id'";
     else return false;
 }
 
+function update_wall($material,$description, $id)
+{
+    global $link;
+    $query="UPDATE `wall` 
+SET `material` = '$material', `description` = '$description' 
+WHERE `wall`.`id` = '$id'";
+    $data_result = mysqli_query($link,$query);
+    if ($data_result) return true;
+    else return false;
+}
+
+function add_new_wall ($material, $description)
+{
+    global $link;
+    $query=<<<SQL
+INSERT INTO `wall` (`id`, `material`, `description`) VALUES (NULL, '$material', '$description');
+SQL;
+    $data_result = mysqli_query($link,$query);
+    if ($data_result) return true;
+    else return false;
+}
+
+function delete_wall_by_id ($id)
+{
+    global $link;
+    $query="DELETE FROM `wall` WHERE `id` = '$id'";
+    $data_result=mysqli_query($link,$query);
+    if ($data_result) return true;
+    else return false;
+}

@@ -34,6 +34,7 @@ if ($realty_information=get_realty_information($id))
 }
 else {
     header('Location:index.php');
+    die();
 }
 mysqli_close($link);
 require 'views/preview.php';

@@ -66,7 +66,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lesson_1. Объекты недвижимости.</h1>
+                    <h1 class="page-header">Lesson_2. Объекты недвижимости.</h1>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Просмотр записи
@@ -112,10 +112,9 @@ HTML;
                     <div>
                         <form action="" method="post">
                             <h3 class="text-center text-uppercase"><strong>Вы действительно хотите удалить данную запись?</strong></h3>
-                            <div class="well well-lg center-block" style="max-width:400px">
-                                <button type="submit" name="operation" value="decline" class="btn btn-success btn-lg btn-block"><strong>Оставить</strong>, нельзя удалять</button>
-                                <button type="submit" name="operation" value="delete" class="btn btn-danger btn-lg btn-block">Оставить нельзя, <strong>удалять</strong></button>
-                            </div>
+                            <div class="well center-block" style="max-width:250px">
+<!--                                <button type="submit" name="operation" value="decline" class="btn btn-success btn-lg btn-block"><strong>Оставить</strong>, нельзя удалять</button>-->
+                                <button type="submit" name="operation" value="delete" class="btn btn-danger btn-lg btn-block"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Удалить</button>                            </div>
                         </form>
                     </div>
 

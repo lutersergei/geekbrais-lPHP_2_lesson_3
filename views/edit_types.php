@@ -50,8 +50,8 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a class="active"  href="index.php"><i class="fa fa-home fa-fw"></i>&nbsp; Объекты недвижимости</a>
-                        <a href="wall_types.php"><i class="fa fa-th-list fa-fw"></i>&nbsp; Материалы стен</a>
+                        <a  href="index.php"><i class="fa fa-home fa-fw"></i>&nbsp; Объекты недвижимости</a>
+                        <a class="active" href="wall_types.php"><i class="fa fa-th-list fa-fw"></i>&nbsp; Материалы стен</a>
                     </li>
 
                 </ul>
@@ -65,7 +65,7 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <h1 class="page-header">Lesson_2. Объекты недвижимости.</h1>
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -77,13 +77,9 @@
                                 <table class="table table-hover table-condensed">
                                     <thead>
                                     <tr>
-                                        <th>Комнат</th>
-                                        <th>Этаж</th>
-                                        <th>Адрес</th>
-                                        <th>Материал стен</th>
-                                        <th>Площадь</th>
-                                        <th>Цена</th>
+                                        <th>Материал</th>
                                         <th>Описание</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -91,27 +87,8 @@
                                     <?php echo <<<HTML
                                         <form method="post" action="">
                                             <tr>                                        
-                                            <td><input style="width: 80px" type="number" name="rooms" value="{$rooms}"></td>
-                                            <td><input style="width: 80px" type="number" name="floor" value="{$floor}"></td>
-                                            <td><textarea name="adress" id="" cols="30" rows="2">{$adress}</textarea></td>
-HTML;
-?>
-                                            <td>
-                                                <select id="material" name="material" class="form-control">
-                                                <?php foreach ($walls as $wall)
-                                                {
-                                                    $select=false;
-                                                    if ($material == $wall['id']) $select="selected";
-                                                    echo <<<HTML
-                                                    <option {$select} value="{$wall['id']}">{$wall['material']}</option>
-HTML;
-                                                }
-?>                                              </select>
-                                            </td>
-                                    <?php echo <<<HTML
-                                            <td><input style="width: 80px" type="number" name="area" value="{$area}"></td>
-                                            <td><input style="width: 120px" type="number" name="price" value="{$price}"></td>
-                                            <td><textarea name="description" id="" cols="30" rows="2">{$description}</textarea></td>   
+                                            <td><input type="text" name="material" value="{$material}"></td>                                            
+                                            <td><textarea name="description" id="" cols="50" rows="2">{$description}</textarea></td>   
                                             <td><input type="hidden" name="operation" value="edit">
                                             <button class="btn btn-default" type="submit" >Изменить</button></td>
                                             </tr>   

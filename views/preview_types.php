@@ -66,7 +66,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lesson_1. Объекты недвижимости.</h1>
+                    <h1 class="page-header">Lesson_2. Объекты недвижимости.</h1>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Просмотр записи
@@ -79,7 +79,7 @@
                                     <tr>
                                         <th>Материал</th>
                                         <th>Описание</th>
-                                        <th>Количество объектов недвижимости</th>
+                                        <th>Объектов недвижимости</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -92,8 +92,8 @@
                                             <td>{$count}</td> 
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="edit.php?id="  class="btn btn-default "><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="delete.php?id={}" class="btn btn-default $disabled "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="edit_types.php?id={$id}"  class="btn btn-default "><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="delete_types.php?id={$id}" class="btn btn-default $disabled "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>                                       

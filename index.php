@@ -30,6 +30,7 @@ if (isset($_POST['operation']))
         $description=$_POST['description'];
         add_new_realty($room, $floor, $adress, $material, $area, $price, $description);
         header("Location:index.php");
+        die();
     }
 }
 mysqli_close($link);

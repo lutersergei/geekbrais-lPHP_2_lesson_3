@@ -32,7 +32,7 @@ SQL;
 function get_realty_information ($id)
 {
     global $link;
-    $query="SELECT * FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  WHERE `realty_id` = '$id'";
+    $query="SELECT `realty`.*, `wall`.`material` FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  WHERE `realty_id` = '$id'";
     $data_result = mysqli_query($link,$query);
     $realty_information=array();
     if ($row = mysqli_fetch_assoc($data_result))

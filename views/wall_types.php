@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Агентство недвижимости</title>
+    <title>Агентство недвижимости|Стены</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -66,7 +66,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Lesson_1. Объекты недвижимости.</h1>
+                    <h1 class="page-header">Lesson_2. Объекты недвижимости.</h1>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Материалы стен
@@ -78,7 +78,7 @@
                                     <thead>
                                     <tr>
                                         <th>Материал</th>
-                                        <th>Описание</th>
+                                        <th>Объектов недвижимости</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -91,12 +91,12 @@
                                         echo <<<HTML
 <tr>
                                             <td>{$wall['material']}</td>
-                                            <td>{$wall['description']}</td>       
+                                            <td>{$wall['count']}</td>       
                                             <td>
                                             <div class="btn-group" role="group">
                                             <a href="preview_types.php?id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
-                                            <a href="edit.php?id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="delete.php?id={$wall['id']}"  class="btn btn-default $disabled"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="edit_types.php?id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="delete_types.php?id={$wall['id']}"  class="btn btn-default $disabled"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>
@@ -120,51 +120,15 @@ HTML;
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Добавление нового объекта
+                            Добавление нового материала
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <form method="post" class="form-horizontal">
                                 <div class="form-group">
-                                    <label for="room" class="col-sm-2 control-label">Комнат</label>
-                                    <div class="col-sm-1">
-                                        <input type="number" required class="form-control" id="room" name="room" >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="floor" class="col-sm-2 control-label">Этаж</label>
-                                    <div class="col-sm-1">
-                                        <input type="number" required class="form-control" id="floor" name="floor">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="adress" class="col-sm-2 control-label">Адрес</label>
+                                    <label for="room" class="col-sm-2 control-label">Название материала</label>
                                     <div class="col-sm-3">
-                                        <textarea class="form-control" required id="adress" name="adress" rows="2"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="material" class="col-sm-2 control-label">Материал стен</label>
-                                    <div class="col-sm-2">
-                                        <select id="material" name="material" class="form-control">
-
-                                            <?php foreach ($walls as $wall) {
-                                                echo <<<HTML
-           <option value="{$wall['id']}">{$wall['material']}</option>
-HTML;
-                                            }     ?>                                      </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="area" class="col-sm-2 control-label">Площадь</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" required  class="form-control" id="area" name="area" >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="price" class="col-sm-2 control-label">Цена</label>
-                                    <div class="col-sm-2">
-                                        <input type="number" required class="form-control" id="price" name="price" >
+                                        <input type="text" required class="form-control" id="material" name="material" >
                                     </div>
                                 </div>
                                 <div class="form-group">
