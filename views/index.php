@@ -82,7 +82,6 @@
                                             <th>Материал стен</th>
                                             <th>Площадь</th>
                                             <th>Цена</th>
-                                            <th>Описание</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -96,11 +95,10 @@
                                             <td>{$realty_one['adress']}</td>
                                             <td>{$realty_one['material']}</td>
                                             <td>{$realty_one['area']}</td>
-                                            <td>{$realty_one['price']}</td>
-                                            <td>{$realty_one['description']}</td>
-                                            <td><a href="preview.php?id={$realty_one['realty_id']}">Просмотр</a></td>
-                                            <td><a href="edit.php?id={$realty_one['realty_id']}">Редактирование</a></td>
-                                            <td><a href="delete.php?id={$realty_one['realty_id']}">Удаление</a></td>
+                                            <td>{$realty_one['price']}</td>                                          
+                                            <td><a href="preview.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a></td>
+                                            <td><a href="edit.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a></td>
+                                            <td><a href="delete.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a></td>
                                             </tr>
                                             
 HTML;

@@ -8,6 +8,8 @@
 require_once ('initial.php');
 require_once ('database_connection.php');
 require_once('model/realty.model.php');
+
+//Проверка, передан ли в GET запросе id объекта недвижимости
 if (isset($_GET['id']))
 {
     $id=$_GET['id'];

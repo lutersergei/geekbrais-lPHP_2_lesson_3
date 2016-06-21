@@ -8,6 +8,8 @@
 require_once ('initial.php');
 require_once ('database_connection.php');
 require_once('model/realty.model.php');
+
+//Проверка, передан ли в GET запросе id объекта недвижимости
 if (isset($_GET['id']))
 {
     $id=$_GET['id'];
@@ -15,6 +17,8 @@ if (isset($_GET['id']))
 else {
     header('Location:index.php');
 }
+
+//Получение информации об просматриваемой записи
 if ($realty_information=get_realty_information($id))
 {
     foreach ($realty_information as $realty_one)
