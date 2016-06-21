@@ -96,9 +96,13 @@
                                             <td>{$realty_one['material']}</td>
                                             <td>{$realty_one['area']}</td>
                                             <td>{$realty_one['price']}</td>                                          
-                                            <td><a href="preview.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a></td>
-                                            <td><a href="edit.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a></td>
-                                            <td><a href="delete.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a></td>
+                                            <td>
+                                            <div class="btn-group" role="group">
+                                            <a href="preview.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
+                                            <a href="edit.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="delete.php?id={$realty_one['realty_id']}" class="btn btn-default btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            </div>
+                                            </td>
                                             </tr>
                                             
 HTML;
