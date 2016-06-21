@@ -177,7 +177,8 @@ HTML;
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-default" name="operation" value="add">Добавить</button>
+                                            <input type="hidden" name="operation" value="add">
+                                            <button type="submit" class="btn btn-default">Добавить</button>
                                         </div>
                                     </div>
                                 </form>

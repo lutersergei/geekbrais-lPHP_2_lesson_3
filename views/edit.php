@@ -111,7 +111,8 @@ HTML;
                                             <td><input style="width: 80px" type="number" name="area" value="{$area}"></td>
                                             <td><input style="width: 120px" type="number" name="price" value="{$price}"></td>
                                             <td><textarea name="description" id="" cols="30" rows="2">{$description}</textarea></td>   
-                                            <td><button class="btn btn-default" type="submit" name="operation" value="edit">Изменить</button></td>
+                                            <td><input type="hidden" name="operation" value="edit">
+                                            <button class="btn btn-default" type="submit" >Изменить</button></td>
                                             </tr>   
                                          </form>
 HTML;
