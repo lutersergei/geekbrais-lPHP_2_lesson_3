@@ -50,3 +50,4 @@ else
 {
     die('404');
 }
+mysqli_close($link);
