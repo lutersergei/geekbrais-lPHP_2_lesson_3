@@ -51,7 +51,7 @@
                 <ul class="nav" id="side-menu">
                     <li>
                         <a href="index.php"><i class="fa fa-home fa-fw"></i>&nbsp; Объекты недвижимости</a>
-                        <a class="active" href="wall_types.php"><i class="fa fa-th-list fa-fw"></i>&nbsp; Материалы стен</a>
+                        <a class="active" href="index.php?cat=wall&view=index_and_add"><i class="fa fa-th-list fa-fw"></i>&nbsp; Материалы стен</a>
                     </li>
 
                 </ul>

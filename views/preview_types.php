@@ -51,7 +51,7 @@
                 <ul class="nav" id="side-menu">
                     <li>
                         <a href="index.php"><i class="fa fa-home fa-fw"></i>&nbsp; Объекты недвижимости</a>
-                        <a class="active" href="wall_types.php"><i class="fa fa-th-list fa-fw"></i>&nbsp; Материалы стен</a>
+                        <a class="active" href="index.php?cat=wall&view=index_and_add"><i class="fa fa-th-list fa-fw"></i>&nbsp; Материалы стен</a>
                     </li>
 
                 </ul>
@@ -92,8 +92,8 @@
                                             <td>{$count}</td> 
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="edit_types.php?id={$id}"  class="btn btn-default "><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="delete_types.php?id={$id}" class="btn btn-default $disabled "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="index.php?cat=wall&view=edit&id={$id}"  class="btn btn-default "><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="index.php?cat=wall&view=delete&id={$id}" class="btn btn-default $disabled "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>                                       

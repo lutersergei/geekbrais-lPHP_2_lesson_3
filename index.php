@@ -10,28 +10,43 @@ require_once ('database_connection.php');
 require_once('model/wall.model.php');
 require_once('model/realty.model.php');
 
-//Запрашиваем все значения из таблицы Недвижимость, отсортированые по id
-$realty=get_all_realty_order_by_id();
-
-//Запрашиваем все значения из таблицы Типы_Стен
-$walls=get_all_walls_and_count();
-
-//Проверка на пост запрос о добавлении новой записи
-if (isset($_POST['operation']))
+if (isset($_GET['cat']))
 {
-    if ($_POST['operation']==='add')
-    {
-        $room=$_POST['room'];
-        $floor=$_POST['floor'];
-        $adress=$_POST['adress'];
-        $material=$_POST['material'];
-        $area=$_POST['area'];
-        $price=$_POST['price'];
-        $description=$_POST['description'];
-        add_new_realty($room, $floor, $adress, $material, $area, $price, $description);
-        header("Location:index.php");
-        die();
-    }
+    $controller= $_GET['cat'];
 }
-mysqli_close($link);
-require ('views/index.php');
+else
+{
+    $controller='realty';
+}
+
+
+if (isset($_GET['view']))
+{
+    $controller_action = $_GET['view'];
+}
+else
+{
+    $controller_action = 'index_and_add';
+}
+
+
+if (file_exists("controller/{$controller}.controller.php"))
+{
+    require_once "controller/{$controller}.controller.php";
+}
+else
+{
+    die('404');
+}
+
+
+$controller_function_name = $controller."_".$controller_action;
+
+if (function_exists($controller_function_name))
+{
+    $controller_function_name();
+}
+else
+{
+    die('404');
+}
