@@ -9,6 +9,7 @@ require_once ('initial.php');
 require_once ('database_connection.php');
 require_once('model/wall.model.php');
 require_once('model/realty.model.php');
+require_once ('functions.php');
 
 if (isset($_GET['cat']))
 {
@@ -44,7 +45,8 @@ $controller_function_name = $controller."_".$controller_action;
 
 if (function_exists($controller_function_name))
 {
-    $controller_function_name();
+    $content = $controller_function_name();
+    if ($content) echo $content;
 }
 else
 {

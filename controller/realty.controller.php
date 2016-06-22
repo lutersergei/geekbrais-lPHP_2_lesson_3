@@ -57,8 +57,8 @@ function realty_edit()
 //Запрашиваем все значения из таблицы Типы_Стен
     $walls=get_all_walls_and_count();
 
-//    mysqli_close($link);
-    require 'views/edit.php';
+
+    return render("edit", ['rooms' => $rooms, 'floor' => $floor,'adress' => $adress, 'material' => $material, 'area' => $area, 'price' => $price, 'description' => $description, 'walls' => $walls]);
 }
 
 function realty_delete()
@@ -102,9 +102,9 @@ function realty_delete()
         header('Location:index.php');
         die();
     }
-
-//    mysqli_close($link);
-    require_once 'views/delete.php';
+    
+    return render("delete", ['rooms' => $rooms, 'floor' => $floor,'adress' => $adress, 'material' => $material, 'area' => $area, 'price' => $price, 'description' => $description]);
+    
 }
 
 function realty_preview()
@@ -116,6 +116,7 @@ function realty_preview()
     }
     else {
         header('Location:index.php');
+        die();
     }
 
 //Получение информации об просматриваемой записи
@@ -130,14 +131,15 @@ function realty_preview()
             $area=$realty_one['area'];
             $price=$realty_one['price'];
             $description=$realty_one['description'];
+            $realty_id = $realty_one['realty_id'];
         }
     }
     else {
         header('Location:index.php');
         die();
     }
-//    mysqli_close($link);
-    require 'views/preview.php';
+    
+    return render("preview", ['rooms' => $rooms, 'floor' => $floor,'adress' => $adress, 'material' => $material, 'area' => $area, 'price' => $price, 'description' => $description, 'realty_id' => $realty_id]);
 }
 
 function realty_index_and_add()
@@ -165,6 +167,5 @@ function realty_index_and_add()
             die();
         }
     }
-//    mysqli_close($link);
-    require ('views/index.php');
+    return render("index", ['realty' => $realty, 'walls' => $walls]);
 }

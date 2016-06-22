@@ -44,8 +44,9 @@ function wall_edit()
         die();
     }
 
-//    mysqli_close($link);
-    require 'views/edit_types.php';
+
+    return render("edit_types", ['material' => $material, 'description' => $description, 'id' => $id]);
+
 }
 
 function wall_delete()
@@ -91,8 +92,8 @@ function wall_delete()
         }
     }
 
-//    mysqli_close($link);
-    require_once 'views/delete_types.php';
+    return render("delete_types", ['material' => $material, 'description' => $description, 'count' => $count, 'disabled' => $disabled, 'id' => $id]);
+
 }
 
 function wall_preview()
@@ -124,8 +125,9 @@ function wall_preview()
         header('Location:index.php?cat=wall&view=index_and_add');
         die();
     }
-//    mysqli_close($link);
-    require 'views/preview_types.php';
+
+    return render("preview_types", ['material' => $material, 'description' => $description, 'count' => $count, 'disabled' => $disabled, 'id' => $id]);
+
 
 }
 
@@ -147,6 +149,6 @@ function wall_index_and_add()
         }
     }
 
-//    mysqli_close($link);
-    require_once 'views/wall_types.php';
+    return render("wall_types", ['walls' => $walls]);
+
 }
