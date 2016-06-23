@@ -12,6 +12,15 @@ function render ($view_name, $data = [], $with_layout = true)
         $$key = $value;
     }
     require_once ("views/$view_name.php");
+
+    if (isset($title))
+    {
+        $title = $title;
+    }
+    else
+    {
+        $title='Агентство Недвижимости';
+    }
     $content = ob_get_contents();
     ob_end_clean();
 
