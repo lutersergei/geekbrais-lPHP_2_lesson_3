@@ -13,7 +13,7 @@ function realty_edit()
         $id=$_GET['id'];
     }
     else {
-        header('Location:index.php');
+        header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
 
@@ -29,8 +29,8 @@ function realty_edit()
             $area=$_POST['area'];
             $price=$_POST['price'];
             $description=$_POST['description'];
-            $update=update_realty($rooms, $floor, $adress, $material, $area, $price, $description, $id);
-            header("Location:index.php");
+            update_realty($rooms, $floor, $adress, $material, $area, $price, $description, $id);
+            header("Location:index.php?cat=realty&view=index_and_add");
             die();
         }
     }
@@ -50,7 +50,7 @@ function realty_edit()
         }
     }
     else {
-        header('Location:index.php');
+        header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
 
@@ -69,7 +69,7 @@ function realty_delete()
         $id=$_GET['id'];
     }
     else {
-        header('Location:index.php');
+        header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
 
@@ -78,10 +78,10 @@ function realty_delete()
     {
         if ($_POST['operation']==='delete')
         {
-            if (delete_by_id ($id)) header('Location:index.php');
+            if (delete_by_id ($id)) header('Location:index.php?cat=realty&view=index_and_add');
             //тут можно придумать месседж об успешности
         }
-        else header('Location:index.php');
+        else header('Location:index.php?cat=realty&view=index_and_add');
     }
 
 //Получение информации об просматриваемой записи
@@ -99,7 +99,7 @@ function realty_delete()
         }
     }
     else {
-        header('Location:index.php');
+        header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
     
@@ -115,7 +115,7 @@ function realty_preview()
         $id=$_GET['id'];
     }
     else {
-        header('Location:index.php');
+        header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
 
@@ -135,7 +135,7 @@ function realty_preview()
         }
     }
     else {
-        header('Location:index.php');
+        header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
     
@@ -163,7 +163,7 @@ function realty_index_and_add()
             $price=$_POST['price'];
             $description=$_POST['description'];
             add_new_realty($room, $floor, $adress, $material, $area, $price, $description);
-            header("Location:index.php");
+            header("Location:index.php?cat=realty&view=index_and_add");
             die();
         }
     }

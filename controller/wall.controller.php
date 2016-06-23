@@ -98,7 +98,6 @@ function wall_delete()
 
 function wall_preview()
 {
-
 //Проверка, передан ли в GET запросе id материала
     if (isset($_GET['id']))
     {

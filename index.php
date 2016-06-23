@@ -45,8 +45,8 @@ $controller_function_name = $controller."_".$controller_action;
 
 if (function_exists($controller_function_name))
 {
-    $content = $controller_function_name();
-    if ($content) echo $content;
+    $result = $controller_function_name();
+    if ($result) echo $result;
 }
 else
 {
