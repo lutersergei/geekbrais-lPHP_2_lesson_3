@@ -36,20 +36,8 @@ function realty_edit()
     }
 
 //Получение информации об изменяемой записи для передачи в начальные значения
-    if ($realty_information=get_realty_information($id))
+    if (!$realty_information=get_realty_information($id))
     {
-        foreach ($realty_information as $realty_one)
-        {
-            $rooms=$realty_one['rooms'];
-            $floor=$realty_one['floor'];
-            $adress=$realty_one['adress'];
-            $material=$realty_one['wall_id'];
-            $area=$realty_one['area'];
-            $price=$realty_one['price'];
-            $description=$realty_one['description'];
-        }
-    }
-    else {
         header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
@@ -58,7 +46,7 @@ function realty_edit()
     $walls=get_all_walls_and_count();
 
 
-    return render("edit", ['rooms' => $rooms, 'floor' => $floor,'adress' => $adress, 'material' => $material, 'area' => $area, 'price' => $price, 'description' => $description, 'walls' => $walls]);
+    return render("realty/edit", ['realty' => $realty_information, 'walls' => $walls]);
 }
 
 function realty_delete()
@@ -85,26 +73,12 @@ function realty_delete()
     }
 
 //Получение информации об просматриваемой записи
-    if ($realty_information=get_realty_information($id))
+    if (!$realty_information=get_realty_information($id))
     {
-        foreach ($realty_information as $realty_one)
-        {
-            $rooms=$realty_one['rooms'];
-            $floor=$realty_one['floor'];
-            $adress=$realty_one['adress'];
-            $material=$realty_one['material'];
-            $area=$realty_one['area'];
-            $price=$realty_one['price'];
-            $description=$realty_one['description'];
-        }
-    }
-    else {
         header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
-    
-    return render("delete", ['rooms' => $rooms, 'floor' => $floor,'adress' => $adress, 'material' => $material, 'area' => $area, 'price' => $price, 'description' => $description]);
-    
+    return render("realty/delete", ['realty' => $realty_information]);
 }
 
 function realty_preview()
@@ -120,26 +94,13 @@ function realty_preview()
     }
 
 //Получение информации об просматриваемой записи
-    if ($realty_information=get_realty_information($id))
+    if (!$realty_information=get_realty_information($id))
     {
-        foreach ($realty_information as $realty_one)
-        {
-            $rooms=$realty_one['rooms'];
-            $floor=$realty_one['floor'];
-            $adress=$realty_one['adress'];
-            $material=$realty_one['material'];
-            $area=$realty_one['area'];
-            $price=$realty_one['price'];
-            $description=$realty_one['description'];
-            $realty_id = $realty_one['realty_id'];
-        }
-    }
-    else {
         header('Location:index.php?cat=realty&view=index_and_add');
         die();
     }
-    
-    return render("preview", ['rooms' => $rooms, 'floor' => $floor,'adress' => $adress, 'material' => $material, 'area' => $area, 'price' => $price, 'description' => $description, 'realty_id' => $realty_id]);
+
+    return render("realty/preview", ['realty' => $realty_information]);
 }
 
 function realty_index_and_add()
@@ -167,5 +128,5 @@ function realty_index_and_add()
             die();
         }
     }
-    return render("index", ['realty' => $realty, 'walls' => $walls]);
+    return render("realty/index", ['realty' => $realty, 'walls' => $walls]);
 }

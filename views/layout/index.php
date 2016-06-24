@@ -5,6 +5,11 @@
  * Date: 23.06.2016
  * Time: 11:34
  */
+/* @var $content */
+if (!isset($title))
+{
+    $title='Агентство Недвижимости';
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">

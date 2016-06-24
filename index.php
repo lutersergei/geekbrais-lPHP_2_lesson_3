@@ -5,6 +5,7 @@
  * Date: 17.06.2016
  * Time: 17:10
  */
+
 require_once ('initial.php');
 require_once ('database_connection.php');
 require_once('model/wall.model.php');

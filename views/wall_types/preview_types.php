@@ -7,7 +7,7 @@ foreach ($wall_information as $wall)
     $count=$wall['count'];
     if ($count>0) $disabled='disabled';
 }
-    $title="Просмотр материала";
+    $title="Просмотр материала"." - ".$material;
 ?>
 <!-- Page Content -->
     <div id="page-wrapper">

@@ -31,21 +31,13 @@ function wall_edit()
     }
 
 //Получение информации об изменяемой записи для передачи в начальные значения
-    if ($wall_information=get_wall_information_by_id($id))
+    if (!$wall_information=get_wall_information_by_id($id))
     {
-        foreach ($wall_information as $wall)
-        {
-            $material=$wall['material'];
-            $description=$wall['description'];
-        }
-    }
-    else {
         header('Location:index.php?cat=wall&view=index_and_add');
         die();
     }
-
-
-    return render("edit_types", ['material' => $material, 'description' => $description, 'id' => $id]);
+    
+    return render("wall_types/edit_types", ['wall_information' => $wall_information, 'id' => $id]);
 
 }
 
@@ -62,26 +54,16 @@ function wall_delete()
     }
 
 //Получение информации об просматриваемой записи
-    if ($wall_information=get_wall_information_by_id($id))
+    if (!$wall_information=get_wall_information_by_id($id))
     {
-        foreach ($wall_information as $wall)
-        {
-            $disabled=false;
-            $material=$wall['material'];
-            $description=$wall['description'];
-            $count=$wall['count'];
-            if ($count>0) $disabled='disabled';
-        }
-    }
-    else {
         header('Location:index.php?cat=wall&view=index_and_add');
         die();
     }
-
+   
 //Проверка на пост запрос об удалении записи
     if (isset($_POST['operation']))
     {
-        if (($_POST['operation']==='delete') && (!$disabled))
+        if (($_POST['operation']==='delete'))
         {
             if (delete_wall_by_id ($id)) header('Location:index.php?cat=wall&view=index_and_add');
             //тут можно придумать месседж об успешности
@@ -92,7 +74,7 @@ function wall_delete()
         }
     }
 
-    return render("delete_types", ['material' => $material, 'description' => $description, 'count' => $count, 'disabled' => $disabled, 'id' => $id]);
+    return render("wall_types/delete_types", ['wall_information' => $wall_information, 'id' => $id]);
 
 }
 
@@ -109,25 +91,14 @@ function wall_preview()
     }
 
 //Получение информации об просматриваемой записи
-    if ($wall_information=get_wall_information_by_id($id))
+    if (!$wall_information=get_wall_information_by_id($id))
     {
-        foreach ($wall_information as $wall)
-        {
-            $disabled=false;
-            $material=$wall['material'];
-            $description=$wall['description'];
-            $count=$wall['count'];
-            if ($count>0) $disabled='disabled';
-        }
-    }
-    else {
         header('Location:index.php?cat=wall&view=index_and_add');
         die();
     }
 
-    return render("preview_types", ['material' => $material, 'description' => $description, 'count' => $count, 'disabled' => $disabled, 'id' => $id]);
-
-
+    return render("wall_types/preview_types", ['wall_information' => $wall_information, 'id' => $id]);
+    
 }
 
 function wall_index_and_add()
@@ -148,6 +119,6 @@ function wall_index_and_add()
         }
     }
 
-    return render("wall_types", ['walls' => $walls]);
+    return render("wall_types/wall_types", ['walls' => $walls]);
 
 }

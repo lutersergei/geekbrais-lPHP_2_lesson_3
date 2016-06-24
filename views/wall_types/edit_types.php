@@ -1,11 +1,14 @@
 <!--системные переменные-->
 <?php
+/* @var $wall_information[] */
+/* @var $material*/
+/* @var $description*/
 foreach ($wall_information as $wall)
 {
     $material=$wall['material'];
     $description=$wall['description'];
 }
-$title="Изменение материала";
+$title="Изменение материала"." - ".$material;
 ?>
 
 <!-- Page Content -->
