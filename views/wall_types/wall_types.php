@@ -39,9 +39,9 @@ $title="Материалы стен";
                                             <td>{$wall['count']}</td>       
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="index.php?cat=wall&view=preview&id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
-                                            <a href="index.php?cat=wall&view=edit&id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="index.php?cat=wall&view=delete&id={$wall['id']}"  class="btn btn-default $disabled"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="../realty/index.php?cat=wall&view=preview&id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
+                                            <a href="../realty/index.php?cat=wall&view=edit&id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="../realty/index.php?cat=wall&view=delete&id={$wall['id']}"  class="btn btn-default $disabled"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>

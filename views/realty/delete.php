@@ -1,5 +1,15 @@
 <!--системные переменные-->
 <?php
+foreach ($realty as $realty_one)
+{
+    $rooms=$realty_one['rooms'];
+    $floor=$realty_one['floor'];
+    $adress=$realty_one['adress'];
+    $material=$realty_one['material'];
+    $area=$realty_one['area'];
+    $price=$realty_one['price'];
+    $description=$realty_one['description'];
+}
 $title="Удаление помещения";
 ?>
 

@@ -1,6 +1,16 @@
 <!--системные переменные-->
 <?php
 $title="Изменение помещения";
+foreach ($realty as $realty_one)
+{
+    $rooms=$realty_one['rooms'];
+    $floor=$realty_one['floor'];
+    $adress=$realty_one['adress'];
+    $material=$realty_one['wall_id'];
+    $area=$realty_one['area'];
+    $price=$realty_one['price'];
+    $description=$realty_one['description'];
+}
 ?>
 
 <!-- Page Content -->

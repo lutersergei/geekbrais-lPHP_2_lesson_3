@@ -1,5 +1,13 @@
 <!--системные переменные-->
 <?php
+foreach ($wall_information as $wall)
+{
+    $disabled=false;
+    $material=$wall['material'];
+    $description=$wall['description'];
+    $count=$wall['count'];
+    if ($count>0) $disabled='disabled';
+}
 $title="Удаление материала";
 ?>
 
@@ -9,7 +17,7 @@ $title="Удаление материала";
             <div class="row">
                 <div class="col-lg-12">
                     <ol class="breadcrumb">
-                        <li><a href="index.php?cat=wall&view=index_and_add">Материалы стен</a></li>
+                        <li><a href="../realty/index.php?cat=wall&view=index_and_add">Материалы стен</a></li>
                         <li class="active">Удаление материала</li>
                     </ol>
                     <h1 class="page-header">Lesson_1. Объекты недвижимости.</h1>
