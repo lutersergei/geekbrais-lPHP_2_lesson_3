@@ -31,11 +31,19 @@ $title="Материалы стен";
 
                                     <?php foreach ($walls as $wall)
                                     {
-                                        $disabled=false;
-                                        if ($wall['count']>0) $disabled='disabled';
+                                        //Если недвижимость с таки материалом существует, то материал нельзя удалить и появляется ссылка на просмотр всех сущностей с таки материалом
+                                        if ($wall['count']>0) {
+                                            $result="<a href=index.php?realty=wall&view=group_by_wall&id={$wall['id']}>{$wall['material']}</a>";
+                                            $disabled='disabled';
+                                        }
+                                        else
+                                        {
+                                            $result=$wall['material'];
+                                            $disabled=false;
+                                        }
                                         echo <<<HTML
 <tr>
-                                            <td>{$wall['material']}</td>
+                                            <td>$result</td>
                                             <td>{$wall['count']}</td>       
                                             <td>
                                             <div class="btn-group" role="group">

@@ -130,3 +130,39 @@ function realty_index_and_add()
     }
     return render("realty/index", ['realty' => $realty, 'walls' => $walls]);
 }
+
+function realty_group_by_wall()
+{
+    //Проверка, передан ли в GET запросе id материала
+    if (isset($_GET['id']))
+    {
+        $id=$_GET['id'];
+    }
+    else {
+        header('Location:index.php?cat=wall&view=index_and_add');
+        die();
+    }
+    $realty=get_realty_group_by_wall($id);
+
+    //Запрашиваем все значения из таблицы Типы_Стен
+    $walls=get_all_walls_and_count();
+
+    //Проверка на пост запрос о добавлении новой записи
+    if (isset($_POST['operation']))
+    {
+        if ($_POST['operation']==='add')
+        {
+            $room=$_POST['room'];
+            $floor=$_POST['floor'];
+            $adress=$_POST['adress'];
+            $material=$_POST['material'];
+            $area=$_POST['area'];
+            $price=$_POST['price'];
+            $description=$_POST['description'];
+            add_new_realty($room, $floor, $adress, $material, $area, $price, $description);
+            header("Location:index.php?cat=realty&view=index_and_add");
+            die();
+        }
+    }
+    return render("realty/index", ['realty' => $realty, 'walls' => $walls]);
+}

@@ -10,7 +10,7 @@ function get_all_realty_order_by_id ()
     global $link;
     $query="SELECT * FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id` ORDER BY `realty`.`realty_id` ASC ";
     $data_result = mysqli_query($link,$query);
-    $realty=array();
+    $realty=[];
     while($row = mysqli_fetch_assoc($data_result))
     {
         $realty[]=$row;
@@ -72,4 +72,17 @@ function delete_by_id ($id)
     $data_result=mysqli_query($link,$query);
     if ($data_result) return true;
     else return false;
+}
+
+function get_realty_group_by_wall($id)
+{
+    global $link;
+    $query="SELECT * FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  WHERE `wall_id` = '$id' ORDER BY `realty`.`realty_id` ASC";
+    $data_result=mysqli_query($link, $query);
+    $realty=[];
+    while($row = mysqli_fetch_assoc($data_result))
+    {
+        $realty[]=$row;
+    }
+    return $realty;
 }
