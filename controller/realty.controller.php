@@ -81,9 +81,9 @@ function realty_delete()
     }
 
 //Проверка на пост запрос об удалении записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if ($_POST['operation']==='delete')
+        if ($_POST['action']==='delete')
         {
             if (delete_by_id ($id)) header('Location:index.php?cat=realty&view=index_and_add');
             //тут можно придумать месседж об успешности
@@ -131,9 +131,9 @@ function realty_index_and_add()
     $walls=get_all_walls_and_count();
 
 //Проверка на пост запрос о добавлении новой записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if ($_POST['operation']==='add')
+        if ($_POST['action']==='add')
         {
             $room=$_POST['room'];
             $floor=$_POST['floor'];
@@ -167,9 +167,9 @@ function realty_group_by_wall()
     $walls=get_all_walls_and_count();
 
     //Проверка на пост запрос о добавлении новой записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if ($_POST['operation']==='add')
+        if ($_POST['action']==='add')
         {
             $room=$_POST['room'];
             $floor=$_POST['floor'];

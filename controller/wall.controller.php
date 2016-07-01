@@ -18,9 +18,9 @@ function wall_edit()
     }
 
 //Проверка на пост запрос об изменеии записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if ($_POST['operation']==='edit')
+        if ($_POST['action']==='edit')
         {
             $material=$_POST['material'];
             $description=$_POST['description'];
@@ -61,9 +61,9 @@ function wall_delete()
     }
    
 //Проверка на пост запрос об удалении записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if (($_POST['operation']==='delete'))
+        if (($_POST['action']==='delete'))
         {
             if (delete_wall_by_id ($id)) header('Location:index.php?cat=wall&view=index_and_add');
             //тут можно придумать месседж об успешности
@@ -107,9 +107,9 @@ function wall_index_and_add()
     $walls=get_all_walls_and_count();
 
 //Проверка на пост запрос о добавлении новой записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if ($_POST['operation']==='add')
+        if ($_POST['action']==='add')
         {
             $material=$_POST['material'];
             $description=$_POST['description'];

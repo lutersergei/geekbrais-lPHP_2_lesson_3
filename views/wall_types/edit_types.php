@@ -43,7 +43,7 @@ $title="Изменение материала"." - ".$material;
                                             <tr>                                        
                                             <td><input type="text" name="material" value="{$material}"></td>                                            
                                             <td><textarea name="description" id="" cols="50" rows="2">{$description}</textarea></td>   
-                                            <td><input type="hidden" name="operation" value="edit">
+                                            <td><input type="hidden" name="action" value="edit">
                                             <button class="btn btn-default" type="submit" >Изменить</button></td>
                                             </tr>   
                                          </form>

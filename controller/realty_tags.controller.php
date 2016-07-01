@@ -12,9 +12,9 @@ function realty_tags_index_and_add()
     $tags=get_all_tags();
 
 //Проверка на пост запрос о добавлении новой записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if ($_POST['operation']==='add')
+        if ($_POST['action']==='add')
         {
             $title=$_POST['title'];
             add_new_tag($title);
@@ -40,9 +40,9 @@ function realty_tags_edit()
     }
 
 //Проверка на пост запрос об изменеии записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if ($_POST['operation']==='edit')
+        if ($_POST['action']==='edit')
         {
             $title=$_POST['title'];
             edit_tag($title, $id);
@@ -82,9 +82,9 @@ function realty_tags_delete()
     }
 
 //Проверка на пост запрос об удалении записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if (($_POST['operation']==='delete'))
+        if (($_POST['action']==='delete'))
         {
             if (delete_tag_by_id($id))
             {
