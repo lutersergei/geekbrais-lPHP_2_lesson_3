@@ -60,7 +60,7 @@ HTML;
                                                     $select=false;
                                                     if ($material == $wall['id']) $select="selected";
                                                     echo <<<HTML
-                                                    <option {$select} value="{$wall['id']}">{$wall['material']}</option>
+                                                    <option {$select} value="{$wall['id']}">{$wall['material']}</option>\n
 HTML;
                                                 }
 ?>                                              </select>
@@ -69,7 +69,7 @@ HTML;
                                             <td><input style="width: 80px" type="number" name="area" value="{$area}"></td>
                                             <td><input style="width: 120px" type="number" name="price" value="{$price}"></td>
                                             <td><textarea name="description" id="" cols="30" rows="2">{$description}</textarea></td>   
-                                            <td><input type="hidden" name="operation" value="edit">
+                                            <td><input type="hidden" name="action" value="edit">
                                             <button class="btn btn-default" type="submit" >Изменить</button></td>
                                             </tr>   
                                          </form>
@@ -86,6 +86,52 @@ HTML;
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Добавление тега
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <form method="post" class="form-horizontal">
+                                        <select id="tag_id" name="tag_id" class="form-control">
+
+                                            <?php foreach ($tags as $tag) {
+                                                echo <<<HTML
+           <option value="{$tag['tag_id']}">{$tag['title']}</option> \n
+HTML;
+                                            }     ?>                                      </select>
+                                        <hr>
+                                        <input type="hidden" name="action" value="add_tag">
+                                        <input type="hidden" name="id" value="<?= $realty_one['realty_id'] ?>">
+                                        <button type="submit" class="btn btn-default">Добавить</button>
+                                    </form>    
+                                </div>
+                                <div class="col-lg-10">
+                                    <?php
+                                    foreach ($realty_tags as $t)
+                                    {
+                                        ?>
+                                        <form style="display: inline" method="post">
+                                            <input type="hidden" name="action" value="delete_tag"/>
+                                            <input type="hidden" name="id" value="<?= $realty_one['realty_id'] ?>">
+                                            <input type="hidden" name="tag_id" value="<?= $t['relation_id'] ?>"/>
+                                            <button class="btn" style="display: inline"><?= $t['title']; ?> <i class="fa fa-times"></i></button></form>
+                                        <?php
+                                    }
+                                    ?>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
         </div>

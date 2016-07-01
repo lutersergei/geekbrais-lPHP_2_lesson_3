@@ -86,3 +86,28 @@ function get_realty_group_by_wall($id)
     }
     return $realty;
 }
+
+function realty_add_tag($id, $tag_id)
+{
+    global $link;
+    $query="INSERT INTO `realty_tags` (`id`, `realty_id`, `tag_id`) VALUES (NULL, '$id', '$tag_id')";
+    $data_result=mysqli_query($link, $query);
+    if ($data_result)
+    {
+        $id = mysqli_insert_id($link);
+        return $id;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function realty_delete_tag($tag_id)
+{
+    global $link;
+    $query = "DELETE FROM `realty_tags` WHERE `id` = '$tag_id' LIMIT 1";
+    $data_result=mysqli_query($link, $query);
+    if ($data_result) return true;
+    else return false;
+}

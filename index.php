@@ -10,6 +10,7 @@ require_once ('initial.php');
 require_once ('database_connection.php');
 require_once('model/wall.model.php');
 require_once('model/realty.model.php');
+require_once ('model/realty_tags.model.php');
 require_once ('functions.php');
 
 if (isset($_GET['cat']))
@@ -38,7 +39,7 @@ if (file_exists("controller/{$controller}.controller.php"))
 }
 else
 {
-    die('404');
+    die('Такой страницы не существует');
 }
 
 

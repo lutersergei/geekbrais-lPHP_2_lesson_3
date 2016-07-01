@@ -18,9 +18,9 @@ function realty_edit()
     }
 
 //Проверка на пост запрос об изменеии записи
-    if (isset($_POST['operation']))
+    if (isset($_POST['action']))
     {
-        if ($_POST['operation']==='edit')
+        if ($_POST['action']==='edit')
         {
             $rooms=$_POST['rooms'];
             $floor=$_POST['floor'];
@@ -31,6 +31,23 @@ function realty_edit()
             $description=$_POST['description'];
             update_realty($rooms, $floor, $adress, $material, $area, $price, $description, $id);
             header("Location:index.php?cat=realty&view=index_and_add");
+            die();
+        }
+        if ($_POST['action']==='add_tag')
+        {
+            $id=$_POST['id'];
+            $tag_id=$_POST['tag_id'];
+            realty_add_tag($id, $tag_id);
+            header("Location:index.php?cat=realty&view=edit&id=$id");
+            die();
+        }
+        if ($_POST['action']==='delete_tag')
+        {
+            $id=$_POST['id'];
+            $tag_id=$_POST['tag_id'];
+
+            realty_delete_tag($tag_id);
+            header("Location:index.php?cat=realty&view=edit&id=$id");
             die();
         }
     }
@@ -44,9 +61,11 @@ function realty_edit()
 
 //Запрашиваем все значения из таблицы Типы_Стен
     $walls=get_all_walls_and_count();
+    $tags = get_all_tags();
+    $realty_tags = get_realty_tag_list($id);
 
 
-    return render("realty/edit", ['realty' => $realty_information, 'walls' => $walls]);
+    return render("realty/edit", ['realty' => $realty_information, 'walls' => $walls, 'realty_tags' => $realty_tags, 'tags' => $tags]);
 }
 
 function realty_delete()
