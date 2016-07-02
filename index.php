@@ -13,6 +13,8 @@ require_once('model/realty.model.php');
 require_once ('model/realty_tags.model.php');
 require_once ('functions.php');
 
+spl_autoload_register('class_autoload');
+
 if (isset($_GET['cat']))
 {
     $controller= $_GET['cat'];
@@ -32,26 +34,19 @@ else
     $controller_action = 'index_and_add';
 }
 
-
-if (file_exists("controller/{$controller}.controller.php"))
-{
-    require_once "controller/{$controller}.controller.php";
-}
-else
-{
-    die('Такой страницы не существует');
-}
-
-
+$controller_class_name = name2controller_class_name($controller);
 $controller_function_name = $controller."_".$controller_action;
 
-if (function_exists($controller_function_name))
+$controller_object = new $controller_class_name();
+
+if (method_exists($controller_object, $controller_function_name))
 {
-    $result = $controller_function_name();
+    $result = $controller_object ->  $controller_function_name();
     if ($result) echo $result;
 }
 else
 {
     die('404');
 }
+
 mysqli_close($link);
