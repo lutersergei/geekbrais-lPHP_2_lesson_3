@@ -34,7 +34,7 @@ $title="Агентство недвижимости";
                                         <tbody>
 
                                         <?php foreach ($realty as $realty_one)
-                                        {   var_dump($realty_one);
+                                        {
                                             echo <<<HTML
 <tr>
                                             <td>{$realty_one->rooms}</td>
@@ -77,9 +77,9 @@ HTML;
                             <div class="panel-body">
                                 <form method="post" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="room" class="col-sm-2 control-label">Комнат</label>
+                                        <label for="rooms" class="col-sm-2 control-label">Комнат</label>
                                         <div class="col-sm-1">
-                                            <input type="number" required class="form-control" id="room" name="room" >
+                                            <input type="number" required class="form-control" id="rooms" name="rooms" >
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -101,7 +101,7 @@ HTML;
 
 <?php foreach ($walls as $wall) {
     echo <<<HTML
-           <option value="{$wall['id']}">{$wall['material']}</option>
+           <option value="{$wall->id}">{$wall->material}</option>
 HTML;
 }     ?>                                      </select>
                                         </div>

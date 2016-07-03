@@ -13,13 +13,13 @@ class Realty
     public $rooms;
     public $floor;
     public $adress;
-    public $material;
+    public $wall_id;
     public $area;
     public $price;
     public $description;
     public $relations=[];
 
-    function __construct($id = NULL)
+    public function __construct($id = NULL)
     {
         if ($id !== NULL)
         {
@@ -28,7 +28,7 @@ class Realty
         }
     }
 
-    function __set($name, $value)
+    public function __set($name, $value)
     {
         if (mb_substr($name, 0, 9, 'utf-8') === 'relation_')
         {
@@ -37,7 +37,7 @@ class Realty
         }
     }
 
-    function __get($name)
+    public function __get($name)
     {
         if ($name === 'realty_id') return $this->realty_id;
         if (mb_substr($name, 0, 9, 'utf-8') === 'relation_')
@@ -51,12 +51,12 @@ class Realty
         return NULL;
     }
 
-    function is_loaded()
+    public function is_loaded()
     {
         return ($this->realty_id !== NULL);
     }
 
-    function load($array = [])
+    public function load($array = [])
     {
         foreach ($array as $item => $value)
         {
@@ -64,7 +64,7 @@ class Realty
         }
     }
 
-    static function get_all_realty()
+    public static function get_all_realty()
     {
         global $link;
         $query = "
@@ -77,23 +77,22 @@ ORDER BY `realty`.`realty_id` ASC ";
         {
             $realty_one = new Realty();
             $realty_one->load($row);
-//            $realty_one->id = $row['realty_id'];
             $realty[] = $realty_one;
         }
         return $realty;
     }
 
-    function add()
+    public function add()
     {
         global $link;
         $query = <<<SQL
-INSERT INTO `realty` (`realty_id`, `area`, `rooms`, `floor`, `adress`, `price`, `description`, `wall_id`) VALUES (NULL, '$this->area', '$this->room', '$this->floor', '$this->adress', '$this->price', '$this->description', '$this->material');
+INSERT INTO `realty` (`realty_id`, `area`, `rooms`, `floor`, `adress`, `price`, `description`, `wall_id`) VALUES (NULL, '$this->area', '$this->rooms', '$this->floor', '$this->adress', '$this->price', '$this->description', '$this->wall_id');
 SQL;
         mysqli_query($link, $query);
     }
 
 
-    function get_realty()
+    public function get_realty()
     {
         global $link;
         $query = "SELECT `realty`.*, `wall`.`material` AS `relation_wall_material` FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  WHERE `realty_id` = '$this->realty_id'";
@@ -111,7 +110,7 @@ SQL;
     }
 
 
-    function update()
+    public function update()
     {
         global $link;
         $query = <<<SQL
@@ -123,7 +122,7 @@ SQL;
     `adress` = '$this->adress', 
     `price` = '$this->price', 
     `description` = '$this->description', 
-    `wall_id` = '$this->material' 
+    `wall_id` = '$this->wall_id' 
     WHERE `realty`.`realty_id` = '$this->realty_id'
 SQL;
         $data_result = mysqli_query($link, $query);
@@ -132,7 +131,7 @@ SQL;
     }
 
 
-    function delete_by_id()
+    public function delete()
     {
         global $link;
         $query = "DELETE FROM `realty` WHERE `realty_id` = '$this->realty_id'";
@@ -145,23 +144,26 @@ SQL;
         else return false;
     }
 
-    function load_realty_group_by_wall()
+    public static function load_wall_group($wall_id)
     {
         global $link;
         $query = "
 SELECT `realty`.*, `wall`.`material` AS `relation_wall_material`, `wall`.`id` AS `relation_wall_id` 
 FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  
-WHERE `wall_id` = '$this->realty_id' 
+WHERE `wall_id` = '$wall_id' 
 ORDER BY `realty`.`realty_id` ASC";
         $data_result = mysqli_query($link, $query);
-        $realty = [];
-        while ($row = mysqli_fetch_assoc($data_result)) {
-            $realty[] = $row;
+        $realty=[];
+        while($row = mysqli_fetch_assoc($data_result))
+        {
+            $realty_one = new Realty();
+            $realty_one->load($row);
+            $realty[] = $realty_one;
         }
         return $realty;
     }
 
-    function realty_add_tag($tag_id)
+    public function realty_add_tag($tag_id)
     {
         global $link;
         $query = "INSERT INTO `realty_tags` (`id`, `realty_id`, `tag_id`) VALUES (NULL, '$this->realty_id', '$tag_id')";

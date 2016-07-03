@@ -1,16 +1,6 @@
 <!--системные переменные-->
 <?php
 $title="Изменение помещения";
-foreach ($realty as $realty_one)
-{
-    $rooms=$realty_one['rooms'];
-    $floor=$realty_one['floor'];
-    $adress=$realty_one['adress'];
-    $material=$realty_one['wall_id'];
-    $area=$realty_one['area'];
-    $price=$realty_one['price'];
-    $description=$realty_one['description'];
-}
 ?>
 
 <!-- Page Content -->
@@ -48,9 +38,9 @@ foreach ($realty as $realty_one)
                                     <?php echo <<<HTML
                                         <form method="post" action="">
                                             <tr>                                        
-                                            <td><input style="width: 80px" type="number" name="rooms" value="{$rooms}"></td>
-                                            <td><input style="width: 80px" type="number" name="floor" value="{$floor}"></td>
-                                            <td><textarea name="adress" id="" cols="30" rows="2">{$adress}</textarea></td>
+                                            <td><input style="width: 80px" type="number" name="rooms" value="{$realty->rooms}"></td>
+                                            <td><input style="width: 80px" type="number" name="floor" value="{$realty->floor}"></td>
+                                            <td><textarea name="adress" id="" cols="30" rows="2">{$realty->adress}</textarea></td>
 HTML;
 ?>
                                             <td>
@@ -66,10 +56,11 @@ HTML;
 ?>                                              </select>
                                             </td>
                                     <?php echo <<<HTML
-                                            <td><input style="width: 80px" type="number" name="area" value="{$area}"></td>
-                                            <td><input style="width: 120px" type="number" name="price" value="{$price}"></td>
-                                            <td><textarea name="description" id="" cols="30" rows="2">{$description}</textarea></td>   
+                                            <td><input style="width: 80px" type="number" name="area" value="{$realty->area}"></td>
+                                            <td><input style="width: 120px" type="number" name="price" value="{$realty->price}"></td>
+                                            <td><textarea name="description" id="" cols="30" rows="2">{$realty->description}</textarea></td>   
                                             <td><input type="hidden" name="action" value="edit">
+                                            <td><input type="hidden" name="id" value="{$realty->realty_id}">
                                             <button class="btn btn-default" type="submit" >Изменить</button></td>
                                             </tr>   
                                          </form>
@@ -111,7 +102,7 @@ HTML;
                                         <input type="hidden" name="action" value="add_tag">
                                         <input type="hidden" name="id" value="<?= $realty_one['realty_id'] ?>">
                                         <button type="submit" class="btn btn-default">Добавить</button>
-                                    </form>    
+                                    </form>
                                 </div>
                                 <div class="col-lg-10">
                                     <?php

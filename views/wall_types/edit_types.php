@@ -3,11 +3,10 @@
 /* @var $wall_information[] */
 /* @var $material*/
 /* @var $description*/
-foreach ($wall_information as $wall)
-{
-    $material=$wall['material'];
-    $description=$wall['description'];
-}
+
+$material=$wall->material;
+$description=$wall->description;
+$id = $wall->id;
 $title="Изменение материала"." - ".$material;
 ?>
 
@@ -44,6 +43,7 @@ $title="Изменение материала"." - ".$material;
                                             <td><input type="text" name="material" value="{$material}"></td>                                            
                                             <td><textarea name="description" id="" cols="50" rows="2">{$description}</textarea></td>   
                                             <td><input type="hidden" name="action" value="edit">
+                                            <td><input type="hidden" name="id" value="{$id}">
                                             <button class="btn btn-default" type="submit" >Изменить</button></td>
                                             </tr>   
                                          </form>

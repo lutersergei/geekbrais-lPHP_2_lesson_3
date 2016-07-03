@@ -1,13 +1,12 @@
 <?php
-foreach ($wall_information as $wall)
-{
-    $disabled=false;
-    $material=$wall['material'];
-    $description=$wall['description'];
-    $count=$wall['count'];
-    if ($count>0) $disabled='disabled';
-}
-    $title="Просмотр материала"." - ".$material;
+
+$disabled=false;
+$material=$wall->material;
+$description=$wall->description;
+$count=$wall->relation_count;
+$id = $wall->id;
+if ($count>0) $disabled='disabled';
+$title="Просмотр материала"." - ".$material;
 ?>
 <!-- Page Content -->
     <div id="page-wrapper">

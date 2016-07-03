@@ -32,24 +32,24 @@ $title="Материалы стен";
                                     <?php foreach ($walls as $wall)
                                     {
                                         //Если недвижимость с таки материалом существует, то материал нельзя удалить и появляется ссылка на просмотр всех сущностей с таки материалом
-                                        if ($wall['count']>0) {
-                                            $result="<a href=index.php?realty=wall&view=group_by_wall&id={$wall['id']}>{$wall['material']}</a>";
+                                        if (($wall->relation_count)>0) {
+                                            $result="<a href=index.php?realty=wall&view=group_by_wall&wall_id={$wall->id}>{$wall->material}</a>";
                                             $disabled='disabled';
                                         }
                                         else
                                         {
-                                            $result=$wall['material'];
+                                            $result=$wall->material;
                                             $disabled=false;
                                         }
                                         echo <<<HTML
 <tr>
                                             <td>$result</td>
-                                            <td>{$wall['count']}</td>       
+                                            <td>{$wall->relation_count}</td>       
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="../index.php?cat=wall&view=preview&id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
-                                            <a href="../index.php?cat=wall&view=edit&id={$wall['id']}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="../index.php?cat=wall&view=delete&id={$wall['id']}"  class="btn btn-default $disabled"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="../index.php?cat=wall&view=preview&id={$wall->id}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
+                                            <a href="../index.php?cat=wall&view=edit&id={$wall->id}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="../index.php?cat=wall&view=delete&id={$wall->id}"  class="btn btn-default $disabled"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>

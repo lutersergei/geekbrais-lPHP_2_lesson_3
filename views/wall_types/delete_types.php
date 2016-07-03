@@ -1,13 +1,12 @@
 <!--системные переменные-->
 <?php
-foreach ($wall_information as $wall)
-{
-    $disabled=false;
-    $material=$wall['material'];
-    $description=$wall['description'];
-    $count=$wall['count'];
-    if ($count>0) $disabled='disabled';
-}
+
+$disabled=false;
+$material=$wall->material;
+$description=$wall->description;
+$count=$wall->relation_count;
+$id = $wall->id;
+if ($count>0) $disabled='disabled';
 $title="Удаление материала"." - ".$material;
 ?>
 
@@ -57,6 +56,7 @@ HTML;
                         <form action="" method="post">
                             <h3 class="text-center text-uppercase"><strong>Вы действительно хотите удалить данную запись?</strong></h3>
                             <div class="well center-block " style="max-width:250px">
+                                <input type="hidden" name="id" value="<?= $id ?>">
                                 <button type="submit" name="action" value="decline" class="btn btn-default btn-lg btn-block"><i class="fa fa-undo fa-lg" aria-hidden="true"></i> Отмена</button>
                                 <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg btn-block"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Удалить</button>
                             </div>
