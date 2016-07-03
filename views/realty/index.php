@@ -34,20 +34,20 @@ $title="Агентство недвижимости";
                                         <tbody>
 
                                         <?php foreach ($realty as $realty_one)
-                                        {
+                                        {   var_dump($realty_one);
                                             echo <<<HTML
 <tr>
-                                            <td>{$realty_one['rooms']}</td>
-                                            <td>{$realty_one['floor']}</td>
-                                            <td>{$realty_one['adress']}</td>
-                                            <td>{$realty_one['material']}</td>
-                                            <td>{$realty_one['area']}</td>
-                                            <td>{$realty_one['price']}</td>                                          
+                                            <td>{$realty_one->rooms}</td>
+                                            <td>{$realty_one->floor}</td>
+                                            <td>{$realty_one->adress}</td>
+                                            <td>{$realty_one->relation_wall_material}</td>
+                                            <td>{$realty_one->area}</td>
+                                            <td>{$realty_one->price}</td>                                          
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="index.php?cat=realty&view=preview&id={$realty_one['realty_id']}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
-                                            <a href="index.php?cat=realty&view=edit&id={$realty_one['realty_id']}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="index.php?cat=realty&view=delete&id={$realty_one['realty_id']}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="index.php?cat=realty&view=preview&id={$realty_one->realty_id}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
+                                            <a href="index.php?cat=realty&view=edit&id={$realty_one->realty_id}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="index.php?cat=realty&view=delete&id={$realty_one->realty_id}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>

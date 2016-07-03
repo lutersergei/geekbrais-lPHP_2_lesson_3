@@ -1,16 +1,5 @@
 <!--системные переменные-->
 <?php
-foreach ($realty as $realty_one)
-{
-    $rooms=$realty_one['rooms'];
-    $floor=$realty_one['floor'];
-    $adress=$realty_one['adress'];
-    $material=$realty_one['material'];
-    $area=$realty_one['area'];
-    $price=$realty_one['price'];
-    $description=$realty_one['description'];
-    $realty_id = $realty_one['realty_id'];
-}
 $title="Просмотр помещения";
 ?>
 
@@ -48,24 +37,23 @@ $title="Просмотр помещения";
 
                                     <?php echo <<<HTML
 <tr>
-                                            <td>{$rooms}</td>
-                                            <td>{$floor}</td>
-                                            <td>{$adress}</td>
-                                            <td>{$material}</td>
-                                            <td>{$area}</td>
-                                            <td>{$price}</td>
-                                            <td>{$description}</td> 
+                                            <td>{$realty->rooms}</td>
+                                            <td>{$realty->floor}</td>
+                                            <td>{$realty->adress}</td>
+                                            <td>{$realty->relation_wall_material}</td>
+                                            <td>{$realty->area}</td>
+                                            <td>{$realty->price}</td>
+                                            <td>{$realty->description}</td> 
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="index.php?cat=realty&view=edit&id={$realty_id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="index.php?cat=realty&view=delete&id={$realty_id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="index.php?cat=realty&view=edit&id={$realty->realty_id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="index.php?cat=realty&view=delete&id={$realty->realty_id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>                                       
 HTML;
 
                                     ?>
-
                                     </tbody>
                                 </table>
                             </div>

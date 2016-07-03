@@ -7,6 +7,11 @@
  */
 class WallController
 {
+    function __call($name, $arguments)
+    {
+        die('404');
+    }
+    
     public function wall_edit()
     {
         //Проверка, передан ли в GET запросе id объекта недвижимости

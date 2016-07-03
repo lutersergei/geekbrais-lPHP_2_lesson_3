@@ -7,6 +7,11 @@
  */
 class RealtyController
 {
+    function __call($name, $arguments)
+    {
+        die('404');
+    }
+
     public function realty_edit()
     {
         //Проверка, передан ли в GET запросе id объекта недвижимости
@@ -100,23 +105,23 @@ class RealtyController
         }
 
 //Получение информации об просматриваемой записи
-        if (!$realty_information = get_realty_information($id)) {
-            header('Location:index.php?cat=realty&view=index_and_add');
-            die();
+        $realty = new Realty($id);
+        if (!$realty->is_loaded())
+        {
+            die('Объект не найден');
         }
-
-        return render("realty/preview", ['realty' => $realty_information]);
+        return render("realty/preview", ['realty' => $realty]);
     }
 
     public function realty_index_and_add()
     {
         //Запрашиваем все значения из таблицы Недвижимость, отсортированые по id
-        $realty = get_all_realty_order_by_id();
+        $realty = Realty::get_all_realty();
 
-//Запрашиваем все значения из таблицы Типы_Стен
-        $walls = get_all_walls_and_count();
+        //Запрашиваем все значения из таблицы Типы_Стен
+//        $walls = get_all_walls_and_count();
 
-//Проверка на пост запрос о добавлении новой записи
+        //Проверка на пост запрос о добавлении новой записи
         if (isset($_POST['action'])) {
             if ($_POST['action'] === 'add') {
                 $room = $_POST['room'];
@@ -131,7 +136,7 @@ class RealtyController
                 die();
             }
         }
-        return render("realty/index", ['realty' => $realty, 'walls' => $walls]);
+        return render("realty/index", ['realty' => $realty]); /*   , 'walls' => $walls   */
     }
 
     public function realty_group_by_wall()

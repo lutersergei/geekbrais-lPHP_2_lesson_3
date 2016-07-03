@@ -8,6 +8,7 @@
 function render ($view_name, $data = [], $with_layout = true)
 {
     ob_start();
+//    var_dump($data);
     foreach ($data as $key => $value) {
         $$key = $value;
     }
@@ -18,8 +19,10 @@ function render ($view_name, $data = [], $with_layout = true)
     if ($with_layout)
     {
         ob_start();
+
         require_once ('views/layout/index.php');
         $content = ob_get_contents();
+       
         ob_end_clean();
     }
     return $content;
@@ -46,7 +49,7 @@ function class_autoload($classname)
 
 function name2controller_class_name ($name)
 {
-    $pie= explode('_', $name);
+    $pie = explode('_', $name);
     $result = '';
     foreach ($pie as $item)
     {

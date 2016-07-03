@@ -24,7 +24,6 @@ else
     $controller='realty';
 }
 
-
 if (isset($_GET['view']))
 {
     $controller_action = $_GET['view'];
@@ -39,14 +38,7 @@ $controller_function_name = $controller."_".$controller_action;
 
 $controller_object = new $controller_class_name();
 
-if (method_exists($controller_object, $controller_function_name))
-{
-    $result = $controller_object ->  $controller_function_name();
-    if ($result) echo $result;
-}
-else
-{
-    die('404');
-}
+$result = $controller_object ->  $controller_function_name();
+if ($result) echo $result;
 
 mysqli_close($link);

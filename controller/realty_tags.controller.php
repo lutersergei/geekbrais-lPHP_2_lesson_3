@@ -8,6 +8,11 @@
 
 class RealtyTagsController
 {
+    function __call($name, $arguments)
+    {
+        die('404');
+    }
+    
     public function realty_tags_index_and_add()
     {
         //Запрашиваем все значения из таблицы Типы_Стен
