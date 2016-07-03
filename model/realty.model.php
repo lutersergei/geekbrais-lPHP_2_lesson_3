@@ -9,7 +9,7 @@ class Realty
 {
     /*______Поля___________________*/
 
-    private $id;
+    private $realty_id;
     public $rooms;
     public $floor;
     public $adress;
@@ -23,7 +23,7 @@ class Realty
     {
         if ($id !== NULL)
         {
-            $this->id = $id;
+            $this->realty_id = $id;
             $this->get_realty();
         }
     }
@@ -39,7 +39,7 @@ class Realty
 
     function __get($name)
     {
-        if ($name === 'realty_id') return $this->id;
+        if ($name === 'realty_id') return $this->realty_id;
         if (mb_substr($name, 0, 9, 'utf-8') === 'relation_')
         {
             $field = mb_substr($name, 9, NULL, 'utf-8');
@@ -53,7 +53,7 @@ class Realty
 
     function is_loaded()
     {
-        return ($this->id !== NULL);
+        return ($this->realty_id !== NULL);
     }
 
     function load($array = [])
@@ -77,7 +77,7 @@ ORDER BY `realty`.`realty_id` ASC ";
         {
             $realty_one = new Realty();
             $realty_one->load($row);
-            $realty_one->id = $row['realty_id'];
+//            $realty_one->id = $row['realty_id'];
             $realty[] = $realty_one;
         }
         return $realty;
@@ -96,7 +96,7 @@ SQL;
     function get_realty()
     {
         global $link;
-        $query = "SELECT `realty`.*, `wall`.`material` AS `relation_wall_material` FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  WHERE `realty_id` = '$this->id'";
+        $query = "SELECT `realty`.*, `wall`.`material` AS `relation_wall_material` FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  WHERE `realty_id` = '$this->realty_id'";
         $data_result = mysqli_query($link, $query);
         if ($row = mysqli_fetch_assoc($data_result))
         {
@@ -105,7 +105,7 @@ SQL;
         }
         else
         {
-            $this->id = NULL;
+            $this->realty_id = NULL;
             return false;
         }
     }
@@ -124,7 +124,7 @@ SQL;
     `price` = '$this->price', 
     `description` = '$this->description', 
     `wall_id` = '$this->material' 
-    WHERE `realty`.`realty_id` = '$this->id'
+    WHERE `realty`.`realty_id` = '$this->realty_id'
 SQL;
         $data_result = mysqli_query($link, $query);
         if ($data_result) return true;
@@ -135,11 +135,11 @@ SQL;
     function delete_by_id()
     {
         global $link;
-        $query = "DELETE FROM `realty` WHERE `realty_id` = '$this->id'";
+        $query = "DELETE FROM `realty` WHERE `realty_id` = '$this->realty_id'";
         $data_result = mysqli_query($link, $query);
         if ($data_result)
         {
-            $this->id = NULL;
+            $this->realty_id = NULL;
             return true;
         }
         else return false;
@@ -151,7 +151,7 @@ SQL;
         $query = "
 SELECT `realty`.*, `wall`.`material` AS `relation_wall_material`, `wall`.`id` AS `relation_wall_id` 
 FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  
-WHERE `wall_id` = '$this->id' 
+WHERE `wall_id` = '$this->realty_id' 
 ORDER BY `realty`.`realty_id` ASC";
         $data_result = mysqli_query($link, $query);
         $realty = [];
@@ -164,7 +164,7 @@ ORDER BY `realty`.`realty_id` ASC";
     function realty_add_tag($tag_id)
     {
         global $link;
-        $query = "INSERT INTO `realty_tags` (`id`, `realty_id`, `tag_id`) VALUES (NULL, '$this->id', '$tag_id')";
+        $query = "INSERT INTO `realty_tags` (`id`, `realty_id`, `tag_id`) VALUES (NULL, '$this->realty_id', '$tag_id')";
         $data_result = mysqli_query($link, $query);
         if ($data_result) {
             $id = mysqli_insert_id($link);
