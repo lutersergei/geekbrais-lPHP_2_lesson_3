@@ -1,6 +1,14 @@
 <!--системные переменные-->
 <?php
 $title="Удаление помещения";
+$rooms = $realty->rooms;
+$floor = $realty->floor;
+$adress = $realty->adress;
+$id = $realty->realty_id;
+$material = $realty->relation_wall_material;
+$area = $realty->area;
+$price = $realty->price;
+$description = $realty->description;
 ?>
 
 <!-- Page Content -->
@@ -36,13 +44,13 @@ $title="Удаление помещения";
 
                                     <?php echo <<<HTML
 <tr>
-                                            <td>{$realty->rooms}</td>
-                                            <td>{$realty->floor}</td>
-                                            <td>{$realty->adress}</td>
-                                            <td>{$realty->material}</td>
-                                            <td>{$realty->area}</td>
-                                            <td>{$realty->price}</td>
-                                            <td>{$realty->description}</td> 
+                                            <td>{$rooms}</td>
+                                            <td>{$floor}</td>
+                                            <td>{$adress}</td>
+                                            <td>{$material}</td>
+                                            <td>{$area}</td>
+                                            <td>{$price}</td>
+                                            <td>{$description}</td> 
                                             </tr>                                       
 HTML;
                                     
@@ -59,7 +67,7 @@ HTML;
                         <form action="" method="post">
                             <h3 class="text-center text-uppercase"><strong>Вы действительно хотите удалить данную запись?</strong></h3>
                             <div class="well center-block" style="max-width:250px">
-                                <input type="hidden" name="id" value="<?=$realty->realty_id?>">
+                                <input type="hidden" name="id" value="<?=$id?>">
                                 <button type="submit" name="action" value="decline" class="btn btn-default btn-lg btn-block"><i class="fa fa-undo fa-lg" aria-hidden="true"></i> Отмена</button>
                                 <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg btn-block"><i class="fa fa-trash fa-lg" aria-hidden="true"></i> Удалить</button>
                             </div>

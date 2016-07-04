@@ -1,8 +1,8 @@
 <!--системные переменные-->
 <?php
-$title="Изменение тега";
 $tag_title=$tag->title;
 $id = $tag->tag_id;
+$title="Изменение тега - $tag_title";
 ?>
 
 <!-- Page Content -->

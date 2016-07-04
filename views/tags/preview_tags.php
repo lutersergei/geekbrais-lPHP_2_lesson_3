@@ -8,6 +8,7 @@
 //системные переменные
 $tag_title=$tag->title;
 $id = $tag->tag_id;
+$count = $tag->relation_count;
 $title="Просмотр тега - $tag_title";
 ?>
 
@@ -32,6 +33,7 @@ $title="Просмотр тега - $tag_title";
                                 <thead>
                                 <tr>
                                     <th>Название</th>
+                                    <th>Объектов недвижимости</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -39,6 +41,7 @@ $title="Просмотр тега - $tag_title";
                                 <?php echo <<<HTML
 <tr>
                                             <td>{$tag_title}</td>
+                                            <td>{$count}</td> 
                                             <td>
                                             <div class="btn-group" role="group">
                                             <a href="index.php?cat=realty_tags&view=edit&id={$id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>

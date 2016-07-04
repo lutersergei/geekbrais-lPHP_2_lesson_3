@@ -14,7 +14,7 @@ $title="Агентство недвижимости";
                         <h1 class="page-header">Lesson_3</h1>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Квартиры Красноярска
+                                Недвижимость Красноярска
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">

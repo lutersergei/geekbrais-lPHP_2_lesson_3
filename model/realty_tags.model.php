@@ -11,6 +11,7 @@ class RealtyTags
 
     private $tag_id;
     public $title;
+    public $relations = [];
 
     /*______Конструктор класса_____*/
 
@@ -24,10 +25,27 @@ class RealtyTags
     }
 
     /*______Перегрузка класса_____*/
+
+    public function __set($name, $value)
+    {
+        if (mb_substr($name, 0, 9, 'utf-8') === 'relation_')
+        {
+            $field = mb_substr($name, 9, NULL, 'utf-8');
+            $this->relations[$field] = $value;
+        }
+    }
     
     public function __get($name)
     {
         if ($name === 'tag_id') return $this->tag_id;
+        if (mb_substr($name, 0, 9, 'utf-8') === 'relation_')
+        {
+            $field = mb_substr($name, 9, NULL, 'utf-8');
+            if (isset($this->relations[$field]))
+            {
+                return $this->relations[$field];
+            }
+        }
         return NULL;
     }
     
@@ -49,7 +67,7 @@ class RealtyTags
     public static function get_all()
     {
         global $link;
-        $query = "SELECT * FROM `tags`";
+        $query = "SELECT `tags`.*, COUNT(`realty_tags`.`id`) AS `relation_count` FROM `tags` LEFT JOIN `realty_tags` ON `realty_tags`.`tag_id` = `tags`.`tag_id` GROUP BY `tags`.`tag_id`";
         $data_result = mysqli_query($link, $query);
         $tags = [];
         while ($row = mysqli_fetch_assoc($data_result)) 
@@ -64,7 +82,7 @@ class RealtyTags
     public function get_tag()
     {
         global $link;
-        $query = "SELECT * FROM `tags` WHERE `tag_id` = '$this->tag_id'";
+        $query = "SELECT `tags`.*, COUNT(`realty_tags`.`id`) AS `relation_count` FROM `tags` LEFT JOIN `realty_tags` ON `realty_tags`.`tag_id` = `tags`.`tag_id` WHERE `tags`.`tag_id` = '$this->tag_id' GROUP BY `tags`.`tag_id` ";
         $data_result = mysqli_query($link, $query);
         $tags = array();
         if ($row = mysqli_fetch_assoc($data_result)) 

@@ -15,7 +15,7 @@ class RealtyController
     protected static function check_id()
     {
         //Проверка, передан ли в GET запросе id объекта недвижимости
-        if ((isset($_GET['id'])) || (isset($_GET['wall_id'])))
+        if ((isset($_GET['id'])) || (isset($_GET['wall_id'])) || (isset($_GET['tag_id'])))
         {
             if (isset($_GET['id']))
             {
@@ -24,6 +24,10 @@ class RealtyController
             if (isset($_GET['wall_id']))
             {
                 $id = $_GET['wall_id'];
+            }
+            if (isset($_GET['tag_id']))
+            {
+                $id = $_GET['tag_id'];
             }
             return $id;
         }
@@ -145,7 +149,8 @@ class RealtyController
         $id = RealtyController::check_id();
 //Получение информации об просматриваемой записи
         $realty = RealtyController::get_realty($id);
-        return render("realty/preview", ['realty' => $realty]);
+        $relation_tags = RealtyTags::get_realtion_tag($id);
+        return render("realty/preview", ['realty' => $realty, 'relation_tags' => $relation_tags]);
     }
 
     public function realty_index_and_add()
@@ -180,6 +185,28 @@ class RealtyController
 
         //Проверка на пост запрос о добавлении новой записи
         if (isset($_POST['action'])) 
+        {
+            if ($_POST['action'] === 'add')
+            {
+                if (!RealtyController::create_and_load('add'))
+                {
+                    die(ERROR_CREATE);
+                }
+            }
+        }
+        return render("realty/index", ['realty' => $realty, 'walls' => $walls]);
+    }
+
+    public function realty_group_by_tag()
+    {
+        $tag_id = RealtyController::check_id();
+        $realty = Realty::load_tag_group($tag_id);
+
+        //Запрашиваем все значения из таблицы Типы_Стен
+        $walls = Wall::get_all();
+
+        //Проверка на пост запрос о добавлении новой записи
+        if (isset($_POST['action']))
         {
             if ($_POST['action'] === 'add')
             {

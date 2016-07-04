@@ -5,6 +5,10 @@ $rooms = $realty->rooms;
 $floor = $realty->floor;
 $adress = $realty->adress;
 $id = $realty->realty_id;
+$material = $realty->relation_wall_material;
+$area = $realty->area;
+$price = $realty->price;
+$description = $realty->description;
 ?>
 
 <!-- Page Content -->
@@ -60,11 +64,11 @@ HTML;
 ?>                                              </select>
                                             </td>
                                     <?php echo <<<HTML
-                                            <td><input style="width: 80px" type="number" name="area" value="{$realty->area}"></td>
-                                            <td><input style="width: 120px" type="number" name="price" value="{$realty->price}"></td>
-                                            <td><textarea name="description" id="" cols="30" rows="2">{$realty->description}</textarea></td>   
+                                            <td><input style="width: 80px" type="number" name="area" value="{$area}"></td>
+                                            <td><input style="width: 120px" type="number" name="price" value="{$price}"></td>
+                                            <td><textarea name="description" id="" cols="30" rows="2">{$description}</textarea></td>   
                                             <td><input type="hidden" name="action" value="edit">
-                                            <td><input type="hidden" name="id" value="{$realty->realty_id}">
+                                            <td><input type="hidden" name="id" value="{$id}">
                                             <button class="btn btn-default" type="submit" >Изменить</button></td>
                                             </tr>   
                                          </form>

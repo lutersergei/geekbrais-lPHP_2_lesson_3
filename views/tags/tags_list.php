@@ -22,8 +22,8 @@ $title="Список тегов";
                             <table class="table table-hover table-condensed">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Название</th>
+                                    <th>Объектов недвижимости</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -31,15 +31,26 @@ $title="Список тегов";
 
                                 <?php foreach ($tags as $tag)
                                 {
+                                    //Если недвижимость с таки материалом существует, то материал нельзя удалить и появляется ссылка на просмотр всех сущностей с таки материалом
+                                    if (($tag->relation_count)>0) {
+                                        $result="<a href=\"index.php?realty=wall&view=group_by_tag&tag_id={$tag->tag_id}\"><span class='glyphicon glyphicon-tag'></span> {$tag->title}</a>";
+                                        $disabled='disabled';
+                                    }
+                                    else
+                                    {
+                                        $result=$tag->title;
+                                        $disabled=false;
+                                    }
                                     echo <<<HTML
 <tr>
-                                            <td>{$tag->tag_id}</td>
-                                            <td>{$tag->title}</td>       
+                                            
+                                            <td>$result</td>  
+                                            <td>{$tag->relation_count}</td> 
                                             <td>
                                             <div class="btn-group" role="group">
                                             <a href="../index.php?cat=realty_tags&view=preview&id={$tag->tag_id}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
                                             <a href="../index.php?cat=realty_tags&view=edit&id={$tag->tag_id}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="../index.php?cat=realty_tags&view=delete&id={$tag->tag_id}"  class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="../index.php?cat=realty_tags&view=delete&id={$tag->tag_id}"  class="btn btn-default $disabled"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>
@@ -77,7 +88,7 @@ HTML;
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <input type="hidden" name="action" value="add">
-                                    <button type="submit" class="btn btn-default">Добавить</button>
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-plus fa-lg" aria-hidden="true"></i> Добавить</button>
                                 </div>
                             </div>
                         </form>

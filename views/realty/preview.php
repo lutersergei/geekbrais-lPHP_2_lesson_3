@@ -1,6 +1,14 @@
 <!--системные переменные-->
 <?php
 $title="Просмотр помещения";
+$rooms = $realty->rooms;
+$floor = $realty->floor;
+$adress = $realty->adress;
+$id = $realty->realty_id;
+$relation_wall_material = $realty->relation_wall_material;
+$area = $realty->area;
+$price = $realty->price;
+$description = $realty->description;
 ?>
 
 <!-- Page Content -->
@@ -37,17 +45,17 @@ $title="Просмотр помещения";
 
                                     <?php echo <<<HTML
 <tr>
-                                            <td>{$realty->rooms}</td>
-                                            <td>{$realty->floor}</td>
-                                            <td>{$realty->adress}</td>
-                                            <td>{$realty->relation_wall_material}</td>
-                                            <td>{$realty->area}</td>
-                                            <td>{$realty->price}</td>
-                                            <td>{$realty->description}</td> 
+                                            <td>{$rooms}</td>
+                                            <td>{$floor}</td>
+                                            <td>{$adress}</td>
+                                            <td>{$relation_wall_material}</td>
+                                            <td>{$area}</td>
+                                            <td>{$price}</td>
+                                            <td>{$description}</td> 
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="index.php?cat=realty&view=edit&id={$realty->realty_id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="index.php?cat=realty&view=delete&id={$realty->realty_id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="index.php?cat=realty&view=edit&id={$id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="index.php?cat=realty&view=delete&id={$id}"  class="btn btn-default btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>                                       
@@ -57,6 +65,33 @@ HTML;
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            "Облако" тегов
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="pagination">
+                                <?php
+                                foreach ($relation_tags as $t)
+                                {
+                                    ?>
+                                    <li><a href="index.php?realty=wall&view=group_by_tag&tag_id=<?= $t->tag_id; ?>"><?= $t->title; ?></a></li>
+                                    <?php
+                                }
+                                ?>
+                            </ul>
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->

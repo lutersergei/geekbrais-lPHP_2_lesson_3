@@ -94,7 +94,9 @@ ORDER BY `realty`.`realty_id` ASC ";
         $query = <<<SQL
 INSERT INTO `realty` (`realty_id`, `area`, `rooms`, `floor`, `adress`, `price`, `description`, `wall_id`) VALUES (NULL, '$this->area', '$this->rooms', '$this->floor', '$this->adress', '$this->price', '$this->description', '$this->wall_id');
 SQL;
-        mysqli_query($link, $query);
+        $data_result = mysqli_query($link, $query);
+        if ($data_result) return true;
+        else return false;
     }
 
 
@@ -140,6 +142,8 @@ SQL;
     public function delete()
     {
         global $link;
+        $query = "DELETE FROM `realty_tags` WHERE `realty_tags`.`realty_id` = '$this->realty_id'";
+        mysqli_query($link, $query);
         $query = "DELETE FROM `realty` WHERE `realty_id` = '$this->realty_id'";
         $data_result = mysqli_query($link, $query);
         if ($data_result)
@@ -158,6 +162,26 @@ SELECT `realty`.*, `wall`.`material` AS `relation_wall_material`, `wall`.`id` AS
 FROM `realty` LEFT JOIN `wall` ON `realty`.`wall_id`=`wall`.`id`  
 WHERE `wall_id` = '$wall_id' 
 ORDER BY `realty`.`realty_id` ASC";
+        $data_result = mysqli_query($link, $query);
+        $realty=[];
+        while($row = mysqli_fetch_assoc($data_result))
+        {
+            $realty_one = new Realty();
+            $realty_one->load($row);
+            $realty[] = $realty_one;
+        }
+        return $realty;
+    }
+
+    public static function load_tag_group($tag_id)
+    {
+        global $link;
+        $query = "
+SELECT `realty`.*,  `realty_tags`.`tag_id`, `tags`.`title` , `wall`.`material` AS `relation_wall_material` FROM `realty` 
+JOIN `realty_tags` ON `realty`.`realty_id` = `realty_tags`.`realty_id`  
+JOIN `tags` ON `realty_tags`.`tag_id` = `tags`.`tag_id`  
+JOIN `wall` ON `realty`.`wall_id`=`wall`.`id` 
+WHERE `realty_tags`.`tag_id` = '$tag_id'";
         $data_result = mysqli_query($link, $query);
         $realty=[];
         while($row = mysqli_fetch_assoc($data_result))
