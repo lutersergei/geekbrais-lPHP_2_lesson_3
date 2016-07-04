@@ -6,7 +6,7 @@ $description=$wall->description;
 $count=$wall->relation_count;
 $id = $wall->id;
 if ($count>0) $disabled='disabled';
-$title="Просмотр материала"." - ".$material;
+$title="Просмотр материала - $material";
 ?>
 <!-- Page Content -->
     <div id="page-wrapper">
@@ -43,8 +43,8 @@ $title="Просмотр материала"." - ".$material;
                                             <td>{$count}</td> 
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="../realty/index.php?cat=wall&view=edit&id={$id}"  class="btn btn-default "><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="../realty/index.php?cat=wall&view=delete&id={$id}" class="btn btn-default $disabled "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="../index.php?cat=wall&view=edit&id={$id}"  class="btn btn-default "><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="../index.php?cat=wall&view=delete&id={$id}" class="btn btn-default $disabled "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>                                       

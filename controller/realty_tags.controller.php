@@ -12,109 +12,117 @@ class RealtyTagsController
     {
         die('404');
     }
+
+    protected static function check_id()
+    {
+        //Проверка, передан ли в GET запросе id объекта недвижимости
+        if (isset($_GET['id']))
+        {
+            $id = $_GET['id'];
+            return $id;
+        }
+        else
+        {
+            header('Location:index.php?cat=realty_tags&view=index_and_add');
+            die();
+        }
+    }
+
+    protected static function create_and_load($function, $id = NULL)
+    {
+        //Создание нового объекта и загрузка полей информацией из POST, выполнение функции из модели
+        $tag = new RealtyTags($id);
+        if (isset($_POST['title']))
+        {
+            $tag->title = $_POST['title'];
+        }
+        if ($tag->$function())
+        {
+            header("Location:index.php?cat=realty_tags&view=index_and_add");
+            die();
+        }
+        else return false;
+
+    }
+
+    protected static function get_tag($id)
+    {
+        //Получение информации об изменяемой записи для передачи в начальные значения
+        $tag = new RealtyTags($id);
+        if (!$tag->is_loaded())
+        {
+            die(ERROR_VIEW);
+        }
+        return $tag;
+    }
     
     public function realty_tags_index_and_add()
     {
         //Запрашиваем все значения из таблицы Типы_Стен
-        $tags = get_all_tags();
+        $tags = RealtyTags::get_all();
 
 //Проверка на пост запрос о добавлении новой записи
-        if (isset($_POST['action'])) {
-            if ($_POST['action'] === 'add') {
-                $title = $_POST['title'];
-                add_new_tag($title);
-                header("Location:index.php?cat=realty_tags&view=index_and_add");
-                die();
+        if (isset($_POST['action'])) 
+        {
+            if ($_POST['action'] === 'add') 
+            {
+                if (!RealtyTagsController::create_and_load('add'))
+                {
+                    die(ERROR_CREATE);
+                }
             }
         }
-
         return render("tags/tags_list", ['tags' => $tags]);
-
     }
 
     public function realty_tags_edit()
     {
-        //Проверка, передан ли в GET запросе id объекта недвижимости
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        } else {
-            header('Location:index.php?cat=realty_tags&view=index_and_add');
-            die();
-        }
-
+        $id = RealtyTagsController::check_id();
 //Проверка на пост запрос об изменеии записи
-        if (isset($_POST['action'])) {
-            if ($_POST['action'] === 'edit') {
-                $title = $_POST['title'];
-                edit_tag($title, $id);
-                header("Location:index.php?cat=realty_tags&view=index_and_add");
-                die();
+        if (isset($_POST['action']))
+        {
+            if ($_POST['action'] === 'edit')
+            {
+                $id = $_POST['id'];
+                if (!RealtyTagsController::create_and_load('update',$id))
+                {
+                    die(ERROR_UPDATE);
+                }
             }
         }
-
 //Получение информации об изменяемой записи для передачи в начальные значения
-        if (!$tag_information = get_tag_by_id($id)) {
-            header('Location:index.php?cat=realty_tags&view=index_and_add');
-            die();
-        }
-
-        return render("tags/edit_tags", ['tag_information' => $tag_information, 'id' => $id]);
-
+        $tag = RealtyTagsController::get_tag($id);
+        return render("tags/edit_tags", ['tag' => $tag]);
     }
 
     public function realty_tags_delete()
     {
-        //Проверка, передан ли в GET запросе id объекта недвижимости
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        } else {
-            header('Location:index.php?cat=realty_tags&view=index_and_add');
-            die();
-        }
-
-//Получение информации об просматриваемой записи
-        if (!$tag_information = get_tag_by_id($id)) {
-            header('Location:index.php?cat=realty_tags&view=index_and_add');
-            die();
-        }
-
+        $id = RealtyTagsController::check_id();
 //Проверка на пост запрос об удалении записи
         if (isset($_POST['action'])) {
-            if (($_POST['action'] === 'delete')) {
-                if (delete_tag_by_id($id)) {
-                    header('Location:index.php?cat=realty_tags&view=index_and_add');
-                } else {
-                    header('Location:index.php?cat=realty_tags&view=index_and_add');
-                    die('404');
+            if (($_POST['action'] === 'delete'))
+            {
+                $id = $_POST['id'];
+                if (!RealtyTagsController::create_and_load('delete',$id))
+                {
+                    die(ERROR_DELETE);
                 }
-                //тут можно придумать месседж об успешности
-            } else {
+            }
+            else
+            {
                 header('Location:index.php?cat=realty_tags&view=index_and_add');
                 die('404');
             }
         }
-
-        return render("tags/delete_tags", ['tag_information' => $tag_information, 'id' => $id]);
-
+        //Получение информации об просматриваемой записи
+        $tag = RealtyTagsController::get_tag($id);
+        return render("tags/delete_tags", ['tag' => $tag]);
     }
 
     public function realty_tags_preview()
     {
-//Проверка, передан ли в GET запросе id материала
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        } else {
-            header('Location:index.php?cat=realty_tags&view=index_and_add');
-            die();
-        }
-
-//Получение информации об просматриваемой записи
-        if (!$tag_information = get_tag_by_id($id)) {
-            header('Location:index.php?cat=realty_tags&view=index_and_add');
-            die();
-        }
-
-        return render("tags/preview_tags", ['tag_information' => $tag_information, 'id' => $id]);
-
+        $id = RealtyTagsController::check_id();
+        $tag = RealtyTagsController::get_tag($id);
+        return render("tags/preview_tags", ['tag' => $tag]);
     }
 }

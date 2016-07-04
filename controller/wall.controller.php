@@ -11,78 +11,87 @@ class WallController
     {
         die('404');
     }
-    
-    public function wall_edit()
+
+    protected static function check_id()
     {
         //Проверка, передан ли в GET запросе id объекта недвижимости
         if (isset($_GET['id']))
         {
             $id = $_GET['id'];
+            return $id;
         }
         else
         {
             header('Location:index.php?cat=wall&view=index_and_add');
             die();
         }
+    }
+
+    protected static function create_and_load($function, $id = NULL)
+    {
+        //Создание нового объекта и загрузка полей информацией из POST, выполнение функции из модели
+        $wall = new Wall($id);
+        if (isset($_POST['material']))
+        { /*       isset($_POST['material']) - определяет есть ли данные в POST запросе, кроме action. Сделано для delete. Нужен триггер получше               */
+            $wall->material = $_POST['material'];
+            $wall->description = $_POST['description'];
+        }
+        if ($wall->$function())
+        {
+            header("Location:index.php?cat=wall&view=index_and_add");
+            die();
+        }
+        else return false;
+
+    }
+
+    protected static function get_wall($id)
+    {
+        //Получение информации об изменяемой записи для передачи в начальные значения
+        $wall = new Wall($id);
+        if (!$wall->is_loaded())
+        {
+            die(ERROR_VIEW);
+        }
+        return $wall;
+    }
+
+    public function wall_edit()
+    {
+        $id = WallController::check_id();
 
 //Проверка на пост запрос об изменеии записи
         if (isset($_POST['action'])) {
             if ($_POST['action'] === 'edit')
             {
                 $id = $_POST['id'];
-                $wall = new Wall($id);
-                $wall->material = $_POST['material'];
-                $wall->description = $_POST['description'];
-                $wall->update();
-                header("Location:index.php?cat=wall&view=index_and_add");
-                die();
+                if (!WallController::create_and_load('update', $id))
+                {
+                    die(ERROR_UPDATE);
+                }
             }
         }
+        $wall = WallController::get_wall($id);
 
-//Получение информации об изменяемой записи для передачи в начальные значения
-        $wall = new Wall($id);
-        if (!$wall->is_loaded())
-        {
-            die('Объект не найден');
-        }
-        
         return render("wall_types/edit_types", ['wall' => $wall]);
-
     }
 
     public function wall_delete()
     {
-        //Проверка, передан ли в GET запросе id объекта недвижимости
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        } else {
-            header('Location:index.php?cat=wall&view=index_and_add');
-            die();
-        }
-
-//Получение информации об просматриваемой записи
-        $wall = new Wall($id);
-        if (!$wall->is_loaded())
-        {
-            die('Объект не найден');
-        }
+        $id = WallController::check_id();
+        $wall = WallController::get_wall($id);
 
 //Проверка на пост запрос об удалении записи
-        if (isset($_POST['action'])) {
+        if (isset($_POST['action']))
+        {
             if (($_POST['action'] === 'delete')) 
             {
                 $id = $_POST['id'];
-                $wall = new Wall($id);
-                if ($wall->delete())
+                if (!WallController::create_and_load('delete', $id))
                 {
-                    header('Location:index.php?cat=wall&view=index_and_add');
+                    die(ERROR_DELETE);
                 }
-                else
-                {
-                    die('Невозможно удалить объект');
-                }
-                
-            } 
+            }
             else 
             {
                 header('Location:index.php?cat=wall&view=index_and_add');
@@ -95,42 +104,24 @@ class WallController
 
     public function wall_preview()
     {
-//Проверка, передан ли в GET запросе id материала
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        } else {
-            header('Location:index.php?cat=wall&view=index_and_add');
-            die();
-        }
-
-//Получение информации об просматриваемой записи
-        $wall = new Wall($id);
-        if (!$wall->is_loaded())
-        {
-            die('Объект не найден');
-        }
-        return render("wall_types/preview_types", ['wall' => $wall, 'id' => $id]);
-
+        $id = WallController::check_id();
+        $wall = WallController::get_wall($id);
+        return render("wall_types/preview_types", ['wall' => $wall]);
     }
 
     public function wall_index_and_add()
     {
         //Запрашиваем все значения из таблицы Типы_Стен
         $walls = Wall::get_all();
-
         //Проверка на пост запрос о добавлении новой записи
         if (isset($_POST['action'])) {
             if ($_POST['action'] === 'add') {
-                $wall = new Wall();
-                $wall->material = $_POST['material'];
-                $wall->description = $_POST['description'];
-                $wall->add();
-                header("Location:index.php?cat=wall&view=index_and_add");
-                die();
+                if (!WallController::create_and_load('add'))
+                {
+                    die(ERROR_CREATE);
+                }
             }
         }
-
         return render("wall_types/wall_types", ['walls' => $walls]);
-
     }
 }

@@ -1,6 +1,10 @@
 <!--системные переменные-->
 <?php
 $title="Изменение помещения";
+$rooms = $realty->rooms;
+$floor = $realty->floor;
+$adress = $realty->adress;
+$id = $realty->realty_id;
 ?>
 
 <!-- Page Content -->
@@ -38,9 +42,9 @@ $title="Изменение помещения";
                                     <?php echo <<<HTML
                                         <form method="post" action="">
                                             <tr>                                        
-                                            <td><input style="width: 80px" type="number" name="rooms" value="{$realty->rooms}"></td>
-                                            <td><input style="width: 80px" type="number" name="floor" value="{$realty->floor}"></td>
-                                            <td><textarea name="adress" id="" cols="30" rows="2">{$realty->adress}</textarea></td>
+                                            <td><input style="width: 80px" type="number" name="rooms" value="{$rooms}"></td>
+                                            <td><input style="width: 80px" type="number" name="floor" value="{$floor}"></td>
+                                            <td><textarea name="adress" id="" cols="30" rows="2">{$adress}</textarea></td>
 HTML;
 ?>
                                             <td>
@@ -48,9 +52,9 @@ HTML;
                                                 <?php foreach ($walls as $wall)
                                                 {
                                                     $select=false;
-                                                    if ($material == $wall['id']) $select="selected";
+                                                    if ($realty->wall_id == $wall->id) $select="selected";
                                                     echo <<<HTML
-                                                    <option {$select} value="{$wall['id']}">{$wall['material']}</option>\n
+                                                    <option {$select} value="{$wall->id}">{$wall->material}</option>\n
 HTML;
                                                 }
 ?>                                              </select>
@@ -95,25 +99,25 @@ HTML;
 
                                             <?php foreach ($tags as $tag) {
                                                 echo <<<HTML
-           <option value="{$tag['tag_id']}">{$tag['title']}</option> \n
+           <option value="{$tag->tag_id}">{$tag->title}</option> \n
 HTML;
                                             }     ?>                                      </select>
                                         <hr>
                                         <input type="hidden" name="action" value="add_tag">
-                                        <input type="hidden" name="id" value="<?= $realty_one['realty_id'] ?>">
+                                        <input type="hidden" name="id" value="<?= $realty->realty_id ?>">
                                         <button type="submit" class="btn btn-default">Добавить</button>
                                     </form>
                                 </div>
                                 <div class="col-lg-10">
                                     <?php
-                                    foreach ($realty_tags as $t)
+                                    foreach ($relation_tags as $t)
                                     {
                                         ?>
                                         <form style="display: inline" method="post">
                                             <input type="hidden" name="action" value="delete_tag"/>
-                                            <input type="hidden" name="id" value="<?= $realty_one['realty_id'] ?>">
-                                            <input type="hidden" name="tag_id" value="<?= $t['relation_id'] ?>"/>
-                                            <button class="btn" style="display: inline"><?= $t['title']; ?> <i class="fa fa-times"></i></button></form>
+                                            <input type="hidden" name="id" value="<?= $id ?>">
+                                            <input type="hidden" name="relation_id" value="<?= $t->relation_id ?>"/>
+                                            <button class="btn" style="display: inline"><?= $t->title; ?> <i class="fa fa-times"></i></button></form>
                                         <?php
                                     }
                                     ?>

@@ -7,7 +7,7 @@
  */
 class Realty
 {
-    /*______Поля___________________*/
+    /*______Поля класса_______*/
 
     private $realty_id;
     public $rooms;
@@ -19,6 +19,8 @@ class Realty
     public $description;
     public $relations=[];
 
+    /*______Конструктор класса_____*/
+    
     public function __construct($id = NULL)
     {
         if ($id !== NULL)
@@ -27,6 +29,8 @@ class Realty
             $this->get_realty();
         }
     }
+
+    /*______Перегрузка класса_____*/
 
     public function __set($name, $value)
     {
@@ -50,6 +54,8 @@ class Realty
         }
         return NULL;
     }
+
+    /*______Методы класса_____*/
 
     public function is_loaded()
     {
@@ -163,23 +169,28 @@ ORDER BY `realty`.`realty_id` ASC";
         return $realty;
     }
 
-    public function realty_add_tag($tag_id)
+    public function realty_add_tag()
     {
         global $link;
-        $query = "INSERT INTO `realty_tags` (`id`, `realty_id`, `tag_id`) VALUES (NULL, '$this->realty_id', '$tag_id')";
+        $query = "INSERT INTO `realty_tags` (`id`, `realty_id`, `tag_id`) VALUES (NULL, '$this->realty_id', '$this->relation_tag_id')";
         $data_result = mysqli_query($link, $query);
-        if ($data_result) {
-            $id = mysqli_insert_id($link);
-            return $id;
-        } else {
-            return false;
-        }
+        if ($data_result) return true;
+        else return false;
+//        if ($data_result) 
+//        {
+//            $id = mysqli_insert_id($link);
+//            return $id;
+//        } 
+//        else 
+//        {
+//            return false;
+//        }
     }
 
-    function realty_delete_tag($tag_id)
+    public function realty_delete_tag()
     {
         global $link;
-        $query = "DELETE FROM `realty_tags` WHERE `id` = '$tag_id' LIMIT 1";
+        $query = "DELETE FROM `realty_tags` WHERE `id` = '$this->relation_id' LIMIT 1";
         $data_result = mysqli_query($link, $query);
         if ($data_result) return true;
         else return false;

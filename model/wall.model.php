@@ -7,11 +7,15 @@
  */
 class Wall
 {
+    /*______Поля класса_______*/
+    
     private $id;
     public $material;
     public $description;
     public $relations = [];
 
+    /*______Конструктор класса_____*/
+    
     public function __construct($id = NULL)
     {
         if ($id !== NULL)
@@ -21,6 +25,8 @@ class Wall
         }
     }
 
+    /*______Перегрузка класса_____*/
+    
     public function __set($name, $value)
     {
         if (mb_substr($name, 0, 9, 'utf-8') === 'relation_')
@@ -43,6 +49,8 @@ class Wall
         }
         return NULL;
     }
+
+    /*______Методы класса_____*/
 
     public function load($array = [])
     {

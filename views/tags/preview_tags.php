@@ -6,11 +6,9 @@
  * Time: 14:21
  */
 //системные переменные
-foreach ($tag_information as $tag)
-{
-    $tag_title=$tag['title'];
-}
-$title="Просмотр тега";
+$tag_title=$tag->title;
+$id = $tag->tag_id;
+$title="Просмотр тега - $tag_title";
 ?>
 
 <!-- Page Content -->

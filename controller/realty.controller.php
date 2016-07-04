@@ -7,122 +7,144 @@
  */
 class RealtyController
 {
-    function __call($name, $arguments)
+    public function __call($name, $arguments)
     {
         die('404');
     }
 
-    public function realty_edit()
+    protected static function check_id()
     {
         //Проверка, передан ли в GET запросе id объекта недвижимости
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        } else {
+        if ((isset($_GET['id'])) || (isset($_GET['wall_id'])))
+        {
+            if (isset($_GET['id']))
+            {
+                $id = $_GET['id'];
+            }
+            if (isset($_GET['wall_id']))
+            {
+                $id = $_GET['wall_id'];
+            }
+            return $id;
+        }
+        else
+        {
             header('Location:index.php?cat=realty&view=index_and_add');
             die();
         }
+    }
 
-//Проверка на пост запрос об изменеии записи
-        if (isset($_POST['action'])) {
-            if ($_POST['action'] === 'edit') {
-                $id = $_POST['id'];
-                $realty = new Realty($id);
-                $realty->rooms = $_POST['rooms'];
-                $realty->floor = $_POST['floor'];
-                $realty->adress = $_POST['adress'];
-                $realty->material = $_POST['material'];
-                $realty->area = $_POST['area'];
-                $realty->price = $_POST['price'];
-                $realty->description = $_POST['description'];
-                $realty->update();
-                header("Location:index.php?cat=realty&view=index_and_add");
-                die();
-            }
-//            if ($_POST['action'] === 'add_tag') {
-//                $id = $_POST['id'];
-//                $tag_id = $_POST['tag_id'];
-//                realty_add_tag($id, $tag_id);
-//                header("Location:index.php?cat=realty&view=edit&id=$id");
-//                die();
-//            }
-//            if ($_POST['action'] === 'delete_tag') {
-//                $id = $_POST['id'];
-//                $tag_id = $_POST['tag_id'];
-//
-//                realty_delete_tag($tag_id);
-//                header("Location:index.php?cat=realty&view=edit&id=$id");
-//                die();
-//            }
+    protected static function create_and_load($function, $id = NULL)
+    {
+        //Создание нового объекта и загрузка полей информацией из POST, выполнение функции из модели
+        $realty = new Realty($id);
+        if (isset($_POST['rooms']))
+        {   /*       isset($_POST['rooms']) - определяет есть ли данные в POST запросе, кроме action. Сделано для delete. Нужен триггер получше               */
+            $realty->rooms = $_POST['rooms'];
+            $realty->floor = $_POST['floor'];
+            $realty->adress = $_POST['adress'];
+            $realty->wall_id = $_POST['material'];
+            $realty->area = $_POST['area'];
+            $realty->price = $_POST['price'];
+            $realty->description = $_POST['description'];
         }
+        if ($realty->$function())
+        {
+            header("Location:index.php?cat=realty&view=index_and_add");
+            die();
+        }
+        else return false;
+    }
 
-//Получение информации об изменяемой записи для передачи в начальные значения
+    protected static function get_realty($id)
+    {
+        //Получение информации об изменяемой записи для передачи в начальные значения
         $realty = new Realty($id);
         if (!$realty->is_loaded())
         {
-            die('Объект не найден');
+            die(ERROR_VIEW);
         }
+        return $realty;
+    }
 
-//Запрашиваем все значения из таблицы Типы_Стен
-//        $walls = get_all_walls_and_count();
-//        $tags = get_all_tags();
-//        $realty_tags = get_realty_tag_list($id);
+    public function realty_edit()
+    {
+        $id = RealtyController::check_id();
 
+//Проверка на пост запрос об изменеии записи
+        if (isset($_POST['action']))
+        {
+            if ($_POST['action'] === 'edit')
+            {
+                $id = $_POST['id'];
+                if (!RealtyController::create_and_load('update', $id))
+                {
+                    die(ERROR_UPDATE);
+                }
+            }
+            if ($_POST['action'] === 'add_tag')
+            {
+                $id = $_POST['id'];
+                $realty = new Realty($id);
+                $realty->relation_tag_id = $_POST['tag_id'];
+                if ($realty->realty_add_tag())
+                {
+                    header("Location:index.php?cat=realty&view=edit&id={$id}");
+                }
+                else
+                {
+                    die(ERROR_CREATE);
+                }
+            }
+            if ($_POST['action'] === 'delete_tag')
+            {
+                $id = $_POST['id'];
+                $realty = new Realty($id);
+                $realty->relation_id = $_POST['relation_id'];
+                if ($realty->realty_delete_tag())
+                {
+                    header("Location:index.php?cat=realty&view=edit&id={$id}");
+                }
+                else
+                {
+                    die(ERROR_DELETE);
+                }
+            }
+        }
+        $realty = RealtyController::get_realty($id);
+        $walls = Wall::get_all();
+        $tags = RealtyTags::get_all();
 
-        return render("realty/edit", ['realty' => $realty]); /*  _information, 'walls' => $walls, 'realty_tags' => $realty_tags, 'tags' => $tags]   */
+        //Получение всех связанных с квартирой тегов
+        $relation_tags = RealtyTags::get_realtion_tag($id);
+
+        return render("realty/edit", ['realty' => $realty, 'walls' => $walls, 'relation_tags' => $relation_tags, 'tags' => $tags]); 
     }
 
     public function realty_delete()
     {
-        //Проверка, передан ли в GET запросе id объекта недвижимости
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        } else {
-            header('Location:index.php?cat=realty&view=index_and_add');
-            die();
-        }
+        $id = RealtyController::check_id();
 
 //Проверка на пост запрос об удалении записи
         if (isset($_POST['action']))
         {
             if ($_POST['action'] === 'delete')
             {
-                $id = $_POST['id'];
-                $realty = new Realty($id);
-                if ($realty->delete())
+                if (!RealtyController::create_and_load('delete', $id))
                 {
-                    header('Location:index.php?cat=realty&view=index_and_add');
-                }
-                else
-                {
-                    die('Невозможно удалить объект');
+                    die(ERROR_DELETE);
                 }
             }
         }
-//Получение информации об просматриваемой записи
-            $realty = new Realty($id);
-            if (!$realty->is_loaded())
-            {
-                die('Объект не найден');
-            }
+        $realty = RealtyController::get_realty($id);
         return render("realty/delete", ['realty' => $realty]);
     }
 
     public function realty_preview()
     {
-        //Проверка, передан ли в GET запросе id объекта недвижимости
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        } else {
-            header('Location:index.php?cat=realty&view=index_and_add');
-            die();
-        }
-
+        $id = RealtyController::check_id();
 //Получение информации об просматриваемой записи
-        $realty = new Realty($id);
-        if (!$realty->is_loaded())
-        {
-            die('Объект не найден');
-        }
+        $realty = RealtyController::get_realty($id);
         return render("realty/preview", ['realty' => $realty]);
     }
 
@@ -135,20 +157,14 @@ class RealtyController
         $walls = Wall::get_all();
 
         //Проверка на пост запрос о добавлении новой записи
-        if (isset($_POST['action'])) {
+        if (isset($_POST['action'])) 
+        {
             if ($_POST['action'] === 'add')
             {
-                $realty = new Realty();
-                $realty-> rooms = $_POST['rooms'];
-                $realty-> floor = $_POST['floor'];
-                $realty-> adress = $_POST['adress'];
-                $realty-> wall_id = $_POST['material'];
-                $realty-> area = $_POST['area'];
-                $realty-> price = $_POST['price'];
-                $realty-> description = $_POST['description'];
-                $realty->add();
-                header("Location:index.php?cat=realty&view=index_and_add");
-                die();
+                if (!RealtyController::create_and_load('add'))
+                {
+                    die(ERROR_CREATE);
+                }
             }
         }
         return render("realty/index", ['realty' => $realty, 'walls' => $walls]);
@@ -156,33 +172,21 @@ class RealtyController
 
     public function realty_group_by_wall()
     {
-        //Проверка, передан ли в GET запросе id материала
-        if (isset($_GET['wall_id'])) {
-            $wall_id = $_GET['wall_id'];
-        } else {
-            header('Location:index.php?cat=wall&view=index_and_add');
-            die();
-        }
+        $wall_id = RealtyController::check_id();
         $realty = Realty::load_wall_group($wall_id);
 
         //Запрашиваем все значения из таблицы Типы_Стен
         $walls = Wall::get_all();
 
         //Проверка на пост запрос о добавлении новой записи
-        if (isset($_POST['action'])) {
+        if (isset($_POST['action'])) 
+        {
             if ($_POST['action'] === 'add')
             {
-                $realty = new Realty();
-                $realty-> rooms = $_POST['rooms'];
-                $realty-> floor = $_POST['floor'];
-                $realty-> adress = $_POST['adress'];
-                $realty-> wall_id = $_POST['material'];
-                $realty-> area = $_POST['area'];
-                $realty-> price = $_POST['price'];
-                $realty-> description = $_POST['description'];
-                $realty->add();
-                header("Location:index.php?cat=realty&view=index_and_add");
-                die();
+                if (!RealtyController::create_and_load('add'))
+                {
+                    die(ERROR_CREATE);
+                }
             }
         }
         return render("realty/index", ['realty' => $realty, 'walls' => $walls]);

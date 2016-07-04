@@ -1,10 +1,8 @@
 <!--системные переменные-->
 <?php
 $title="Изменение тега";
-foreach ($tag_information as $tag)
-{
-    $tag_title=$tag['title'];
-}
+$tag_title=$tag->title;
+$id = $tag->tag_id;
 ?>
 
 <!-- Page Content -->
@@ -37,6 +35,7 @@ foreach ($tag_information as $tag)
                                         <form method="post" action="">
                                             <td><textarea name="title" id="title" cols="30" rows="2">{$tag_title}</textarea></td>   
                                             <td><input type="hidden" name="action" value="edit">
+                                            <td><input type="hidden" name="id" value="{$id}">
                                             <button class="btn btn-default" type="submit" >Изменить</button></td>
                                             </tr>   
                                          </form>

@@ -33,13 +33,13 @@ $title="Список тегов";
                                 {
                                     echo <<<HTML
 <tr>
-                                            <td>{$tag['tag_id']}</td>
-                                            <td>{$tag['title']}</td>       
+                                            <td>{$tag->tag_id}</td>
+                                            <td>{$tag->title}</td>       
                                             <td>
                                             <div class="btn-group" role="group">
-                                            <a href="../index.php?cat=realty_tags&view=preview&id={$tag['tag_id']}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
-                                            <a href="../index.php?cat=realty_tags&view=edit&id={$tag['tag_id']}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
-                                            <a href="../index.php?cat=realty_tags&view=delete&id={$tag['tag_id']}"  class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
+                                            <a href="../index.php?cat=realty_tags&view=preview&id={$tag->tag_id}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Просмотр</a>
+                                            <a href="../index.php?cat=realty_tags&view=edit&id={$tag->tag_id}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактирование</a>
+                                            <a href="../index.php?cat=realty_tags&view=delete&id={$tag->tag_id}"  class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удаление</a>
                                             </div>
                                             </td>
                                             </tr>

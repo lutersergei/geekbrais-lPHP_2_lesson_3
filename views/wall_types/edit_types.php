@@ -33,6 +33,7 @@ $title="Изменение материала"." - ".$material;
                                         <th>Материал</th>
                                         <th>Описание</th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
